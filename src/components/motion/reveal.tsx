@@ -28,9 +28,9 @@ export function Reveal({ children, as: Tag = "div", className, y = 48 }: Props) 
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.set(items, { autoAlpha: 0, y });
+        // Never use `once: true` in this project — see docs/animation.md.
         ScrollTrigger.batch(items, {
           start: "top 88%",
-          once: true,
           onEnter: (batch) =>
             gsap.to(batch, {
               autoAlpha: 1,

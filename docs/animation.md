@@ -30,6 +30,11 @@ Defaults: `ease: "expo.out"`, `duration: 0.45`.
   `DrawOnScroll` (DrawSVG line art), `ScrubWords`, `Parallax`, `ScrollLine`. Reach for these
   before writing new GSAP code. Guard optional targets (`toArray` + `length`) to avoid
   "target not found" warnings.
+- **Never use `once: true` on ScrollTriggers.** When the page loads already scrolled (a
+  `/#work` link, or refresh mid-page), already-passed `once` triggers kill themselves inside
+  ScrollTrigger's refresh loop, which shrinks its trigger list mid-iteration and crashes
+  (`Cannot read properties of undefined (reading 'end')` → "This page couldn't load"). The
+  default `toggleActions: "play none none none"` already plays once and never reverses.
 - **Hot reload caveat:** editing `src/lib/gsap.ts` while a page is open can throw GSAP context
   errors (re-registered plugins under live contexts). Reload in a fresh tab before debugging.
 - **Testing tip:** GSAP runs on `requestAnimationFrame`, which is paused in hidden tabs/panes —

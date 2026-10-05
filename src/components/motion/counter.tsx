@@ -27,7 +27,7 @@ export function Counter({ value, prefix = "", suffix = "", className }: Props) {
           n: value,
           duration: 2.2,
           ease: ease.outExpo,
-          scrollTrigger: { trigger: el, start: "top 90%", once: true },
+          scrollTrigger: { trigger: el, start: "top 90%" },
           onUpdate: () => {
             el.textContent = `${prefix}${format(state.n)}${suffix}`;
           },

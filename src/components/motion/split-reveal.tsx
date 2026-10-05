@@ -60,7 +60,7 @@ export function SplitReveal({
               stagger: type === "chars" ? staggers.chars * 2 : staggers.lines,
               scrollTrigger: scrub
                 ? { trigger: el, start: "top bottom", end, scrub: 0.6 }
-                : { trigger: el, start, once: true },
+                : { trigger: el, start },
             });
           },
         });

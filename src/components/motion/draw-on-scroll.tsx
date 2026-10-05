@@ -32,7 +32,7 @@ export function DrawOnScroll({ children, className }: Props) {
         ].map(q);
 
         const tl = gsap.timeline({
-          scrollTrigger: { trigger: ref.current, start: "top 85%", once: true },
+          scrollTrigger: { trigger: ref.current, start: "top 85%" },
         });
         if (draw.length)
           tl.from(draw, {
