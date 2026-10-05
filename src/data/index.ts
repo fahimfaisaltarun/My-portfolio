@@ -17,11 +17,13 @@ export {
   proofStats,
 } from "./home";
 export { services, industries, platforms, tools } from "./services";
-export { stats, badges, work, testimonials, credentials } from "./proof";
+export { stats, badges, work, credentials } from "./proof";
+export { testimonials, testimonialsCopy } from "./testimonials";
 export { designShowcase, designShowcaseSource } from "./design-showcase";
 export type * from "./types";
 
-import { work as allWork, testimonials as allTestimonials } from "./proof";
+import { work as allWork } from "./proof";
+import { testimonials as allTestimonials } from "./testimonials";
 import { designShowcase as allShowcase } from "./design-showcase";
 
 /** Work items that are ready to render. */

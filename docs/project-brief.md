@@ -40,6 +40,7 @@ What we change: their accent is blue; ours is **red (ember)** on near-black, wit
 | 2026-10-05 | Text on red is pure white; red hover darkens to ember-600                                                    | Owner request. White on ember-500 = 4.2:1 (passes AA for large text).                                                                                |
 | 2026-10-05 | Homepage order: Hero → marquee → Services → Work → Process → About → Reviews → footer CTA                    | Nav reordered to match. Copy rule: one strong headline + one short line per section.                                                                 |
 | 2026-10-05 | Reviews shows verified proof (counters + Top Rated + Upwork link), no quotes yet                             | No review text available yet; never invent testimonials. Cards render automatically from approved data.                                              |
+| 2026-10-06 | Testimonials: three GSAP scrolling columns after Proof (owner request, modelled on a 21st.dev component)     | Built with GSAP, not `motion`, to keep one animation library. No schema.org Review markup: Google ignores self-serving reviews on your own site.     |
 | 2026-10-05 | SEO-first foundation before any sections                                                                     | Metadata, JSON-LD (Person, WebSite, ProfessionalService), sitemap, robots, manifest, OG image.                                                       |
 
 Added 2026-10-05: tooling + DX setup — `cn()` (clsx + tailwind-merge), `lucide-react`,
@@ -61,7 +62,7 @@ content model types, Claude skills `new-section` / `new-page`.
 - [x] Hero (name h1, "Turning scrollers into customers", portrait, intro animation)
 - [x] Service categories + design showcase rows
 - [ ] Case-study pages `/work/[slug]` (needs project descriptions/results)
-- [ ] Testimonial quotes (section ready — add approved quotes to `src/data/proof.ts`)
+- [ ] Testimonial quotes (scrolling columns section ready — add reviews to `src/data/testimonials.ts`)
 - [x] About (scroll-lit statement, bio, credentials, toolkit)
 - [x] Contact CTA + footer (in `SiteFooter`, `#contact`)
 - [ ] Custom cursor, magnetic buttons, page transitions

@@ -1,4 +1,4 @@
-import type { Credential, Stat, Testimonial, WorkItem } from "./types";
+import type { Credential, Stat, WorkItem } from "./types";
 
 // Source for stats: Upwork freelancer profile, fetched 2026-10-05.
 // Re-check before launch — these change over time.
@@ -74,12 +74,6 @@ export const work: WorkItem[] = [
     status: "draft",
   },
 ];
-
-/**
- * Real client quotes only (e.g. copied from Upwork reviews), and only with
- * `approved: true` once you're happy to show them.
- */
-export const testimonials: Testimonial[] = [];
 
 // Source: Upwork profile.
 export const credentials: Credential[] = [

@@ -8,7 +8,7 @@ import { RollText } from "@/components/ui/roll-text";
 function Statement() {
   let parts: React.ReactNode[] = [aboutCopy.statement];
   for (const phrase of aboutCopy.highlight) {
-    parts = parts.flatMap((part) => {
+    parts = parts.flatMap<React.ReactNode>((part) => {
       if (typeof part !== "string" || !part.includes(phrase)) return [part];
       const [before, after] = part.split(phrase);
       return [

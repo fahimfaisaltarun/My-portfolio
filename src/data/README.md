@@ -47,6 +47,6 @@ featured services = social, short-form video, websites, paid ads.
 Decided 2026-10-05: domain fahirum.com; socials added; owner has permission from all clients to
 use their names, work and reviews; no agency-level stats.
 
-1. Upwork work history + review text (screenshot too low-res to transcribe accurately)
+1. Upwork review text → paste into `testimonials.ts` (section appears automatically)
 2. Reels / short-form video files (none in the Canva deck)
 3. Own-words bio, portrait photo

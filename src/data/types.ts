@@ -165,15 +165,21 @@ export type DesignShowcase = {
 };
 
 export type Testimonial = {
+  /** The review text, exactly as the client wrote it. */
   quote: string;
   name: string;
   role?: string;
   company?: string;
-  avatar?: string;
-  /** Star rating from the source review (1–5), if any. */
+  /** Upwork job title the review belongs to, e.g. "Instagram Content Creator". */
+  project?: string;
+  /** Star rating from the source review (1–5). */
   rating?: number;
+  /** ISO date (YYYY-MM or YYYY-MM-DD) the review was left. */
+  date?: string;
+  /** Optional photo under /public; initials are shown when absent. */
+  avatar?: string;
   source: "upwork" | "direct" | "linkedin" | "google";
-  /** Only render testimonials you have permission to show. */
+  /** Only approved testimonials render. */
   approved: boolean;
 };
 

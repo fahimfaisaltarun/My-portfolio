@@ -16,7 +16,7 @@ src/
 │   ├── layout/               # SiteHeader, SiteFooter, MobileMenu, NavLink, HeaderShell, BackToTop
 │   ├── providers/            # Client providers (smooth-scroll)
 │   ├── seo/                  # JsonLd
-│   ├── sections/             # Hero, MarqueeBand, Services, Work (+ WorkGallery), Process, About, Reviews
+│   ├── sections/             # Hero, MarqueeBand, Services, Work (+ WorkGallery), Process, About, Reviews, Testimonials
 │   ├── illustrations/        # Line-art SVG service illustrations (animated by DrawOnScroll)
 │   ├── ui/                   # PillLink, RollText, Logo, Availability (planned: VideoCard…)
 │   └── motion/               # SplitReveal, HeroMotion, Reveal, Marquee, Counter, DrawOnScroll, ScrubWords, Parallax, ScrollLine
@@ -84,7 +84,9 @@ back-to-top target). The header is fixed, so a page's first section needs
   (`export function SmoothScroll`). Route files use default exports (Next.js requirement).
 - **Imports:** use the `@/` alias (`@/lib/seo`), never long relative paths.
 - **Server vs client:** sections are Server Components that render the content; animation lives
-  in small `"use client"` wrappers in `components/motion/` that receive children.
+  in small `"use client"` wrappers in `components/motion/` that receive children. A `"use client"`
+  file should export **components only** — any other value (a class string, a constant) imported
+  from it into a Server Component arrives as a client reference, not the value.
 - **Styling:** Tailwind utilities with design tokens. Put repeated patterns in `@utility` blocks in
   `globals.css`, not in ad-hoc CSS files. No CSS-in-JS.
 - **Props types:** inline `type Props = {…}` above the component; use Next's global

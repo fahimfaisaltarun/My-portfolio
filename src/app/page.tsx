@@ -4,6 +4,7 @@ import { MarqueeBand } from "@/components/sections/marquee-band";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ReviewsSection } from "@/components/sections/reviews-section";
 import { ServicesSection } from "@/components/sections/services-section";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
 import { WorkSection } from "@/components/sections/work-section";
 
 /**
@@ -20,6 +21,7 @@ export default function HomePage() {
       <ProcessSection />
       <AboutSection />
       <ReviewsSection />
+      <TestimonialsSection />
     </main>
   );
 }
