@@ -17,7 +17,7 @@ export {
   proofStats,
 } from "./home";
 export { services, industries, platforms, tools } from "./services";
-export { stats, badges, work, credentials } from "./proof";
+export { stats, badges, upworkRating, work, credentials } from "./proof";
 export { testimonials, testimonialsCopy } from "./testimonials";
 export { designShowcase, designShowcaseSource } from "./design-showcase";
 export type * from "./types";

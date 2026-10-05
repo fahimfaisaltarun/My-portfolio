@@ -1,5 +1,5 @@
-import { Award } from "lucide-react";
-import { badges, profile, proofStats, reviewsCopy } from "@/data";
+import { Award, Star } from "lucide-react";
+import { badges, profile, proofStats, reviewsCopy, upworkRating } from "@/data";
 import { Counter } from "@/components/motion/counter";
 import { Reveal } from "@/components/motion/reveal";
 import { PillLink } from "@/components/ui/pill-link";
@@ -40,10 +40,20 @@ export function ReviewsSection() {
         </Reveal>
 
         <div className="mt-12 flex flex-wrap items-center justify-between gap-6">
-          <p className="inline-flex items-center gap-3 text-lead font-bold tracking-snug">
-            <Award aria-hidden className="size-6 text-accent" />
-            {badges[0]}
-          </p>
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-lead font-bold tracking-snug">
+            <p className="inline-flex items-center gap-3">
+              <span className="flex gap-0.5 text-accent" aria-hidden>
+                {Array.from({ length: 5 }, (_, i) => (
+                  <Star key={i} className="size-5 fill-current" />
+                ))}
+              </span>
+              {upworkRating.toFixed(1)} client rating
+            </p>
+            <p className="inline-flex items-center gap-3">
+              <Award aria-hidden className="size-6 text-accent" />
+              {badges[0]}
+            </p>
+          </div>
           {upwork && (
             <PillLink href={upwork.url} variant="outline">
               Read reviews on Upwork

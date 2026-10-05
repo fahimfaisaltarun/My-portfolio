@@ -11,6 +11,16 @@ const initials = (name: string) =>
     .join("")
     .toUpperCase();
 
+/** "2026-04" → "Apr 2026" (UTC, so server and client agree). */
+const formatDate = (iso?: string) =>
+  iso
+    ? new Date(`${iso.length === 7 ? `${iso}-01` : iso}T00:00:00Z`).toLocaleDateString("en-US", {
+        month: "short",
+        year: "numeric",
+        timeZone: "UTC",
+      })
+    : undefined;
+
 const sourceLabel: Record<Testimonial["source"], string> = {
   upwork: "Upwork",
   direct: "Client",
@@ -20,7 +30,9 @@ const sourceLabel: Record<Testimonial["source"], string> = {
 
 /** One review card: stars, quote, project, and the client's name. */
 export function TestimonialCard({ testimonial: t }: { testimonial: Testimonial }) {
-  const byline = [t.role, t.company].filter(Boolean).join(", ");
+  const byline = [[t.role, t.company].filter(Boolean).join(", "), formatDate(t.date)]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
     <figure className="w-full rounded-3xl border border-border bg-background p-7 sm:p-8">
@@ -48,6 +60,19 @@ export function TestimonialCard({ testimonial: t }: { testimonial: Testimonial }
       </blockquote>
 
       {t.project && <p className="mt-4 text-small text-muted">Project: {t.project}</p>}
+
+      {t.endorsements && t.endorsements.length > 0 && (
+        <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Client endorsements">
+          {t.endorsements.slice(0, 2).map((tag) => (
+            <li
+              key={tag}
+              className="rounded-full bg-surface px-2.5 py-1 text-caption text-foreground/80"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )}
 
       <figcaption className="mt-6 flex items-center gap-3 border-t border-border pt-5">
         {t.avatar ? (

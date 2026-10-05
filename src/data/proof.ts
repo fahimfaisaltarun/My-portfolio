@@ -23,6 +23,9 @@ export const stats: Stat[] = [
 
 export const badges = ["Top Rated on Upwork"] as const;
 
+/** Overall Upwork rating across reviewed contracts. Source: owner's Upwork work history, 2026-10-06. */
+export const upworkRating = 5.0;
+
 /**
  * Titles from the Upwork portfolio. They stay `draft` until media (images or
  * video) and a short summary/result are added — drafts never render.

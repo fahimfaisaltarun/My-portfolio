@@ -176,6 +176,8 @@ export type Testimonial = {
   rating?: number;
   /** ISO date (YYYY-MM or YYYY-MM-DD) the review was left. */
   date?: string;
+  /** Upwork endorsement tags the client chose, e.g. "Committed to Quality". */
+  endorsements?: string[];
   /** Optional photo under /public; initials are shown when absent. */
   avatar?: string;
   source: "upwork" | "direct" | "linkedin" | "google";
