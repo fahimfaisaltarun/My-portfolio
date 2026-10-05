@@ -84,6 +84,9 @@ export type Agency = {
 
 export type NavItem = { label: string; href: string };
 
+/** Standard section header copy. `emphasis` = word inside `title` set in accent serif. */
+export type SectionCopy = { eyebrow: string; title: string; emphasis?: string; intro?: string };
+
 /* -------------------------------------------------------------- offering */
 
 export type ServiceCategory =
@@ -99,6 +102,8 @@ export type ServiceCategory =
 
 export type Service = {
   id: ServiceCategory;
+  /** Short category label shown above the title, e.g. "Short-form video". */
+  label: string;
   title: string;
   /** Word(s) inside `title` to render with the accent-serif style. */
   emphasis?: string;
@@ -117,6 +122,7 @@ export type Tool = {
 };
 
 export type Stat = {
+  id: "hours" | "jobs" | "reviews";
   value: number;
   /** Rendered after the number, e.g. "+", "%", "h". */
   suffix?: string;
@@ -151,6 +157,8 @@ export type DesignShowcase = {
   slug: string;
   /** Short display label, e.g. "Dental clinic". */
   industry: string;
+  /** Industry group used for counting/filtering (several boards can share one). */
+  sector: string;
   image: ImageAsset;
   /** Shown in homepage rows; the rest can appear on a full gallery page. */
   featured: boolean;
@@ -162,6 +170,8 @@ export type Testimonial = {
   role?: string;
   company?: string;
   avatar?: string;
+  /** Star rating from the source review (1–5), if any. */
+  rating?: number;
   source: "upwork" | "direct" | "linkedin" | "google";
   /** Only render testimonials you have permission to show. */
   approved: boolean;

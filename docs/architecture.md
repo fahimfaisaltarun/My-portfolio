@@ -16,9 +16,10 @@ src/
 │   ├── layout/               # SiteHeader, SiteFooter, MobileMenu, NavLink, HeaderShell, BackToTop
 │   ├── providers/            # Client providers (smooth-scroll)
 │   ├── seo/                  # JsonLd
-│   ├── sections/             # HeroSection (planned: Work, Services, About, Reviews…)
+│   ├── sections/             # Hero, MarqueeBand, Services, Work (+ WorkGallery), Process, About, Reviews
+│   ├── illustrations/        # Line-art SVG service illustrations (animated by DrawOnScroll)
 │   ├── ui/                   # PillLink, RollText, Logo, Availability (planned: VideoCard…)
-│   └── motion/               # SplitReveal, HeroMotion (planned: Magnetic, Cursor, Marquee…)
+│   └── motion/               # SplitReveal, HeroMotion, Reveal, Marquee, Counter, DrawOnScroll, ScrubWords, Parallax, ScrollLine
 ├── config/
 │   └── site.ts               # SEO config, derived from src/data
 ├── data/                     # ★ Source of truth for ALL site content (see src/data/README.md)
@@ -44,23 +45,34 @@ data can later move to a CMS without touching components.
 
 Add one line here whenever you create a shared component, so the next person reuses it.
 
-| Component      | Path                                         | Purpose                                                                    |
-| -------------- | -------------------------------------------- | -------------------------------------------------------------------------- |
-| `SiteHeader`   | `src/components/layout/site-header.tsx`      | Fixed header: logo, desktop nav (lg+), CTA, mobile menu. In root layout.   |
-| `HeaderShell`  | `src/components/layout/header-shell.tsx`     | Hide-on-scroll-down / blur-on-scroll via `data-*` attrs (no re-renders)    |
-| `MobileMenu`   | `src/components/layout/mobile-menu.tsx`      | Native `<dialog>` full-screen menu + GSAP wipe/stagger; Esc, focus, Lenis  |
-| `NavLink`      | `src/components/layout/nav-link.tsx`         | Link that Lenis-scrolls to same-page `#sections`, `aria-current` on routes |
-| `SiteFooter`   | `src/components/layout/site-footer.tsx`      | `#contact` CTA, link columns, giant wordmark, legal bar. In root layout.   |
-| `BackToTop`    | `src/components/layout/back-to-top.tsx`      | Smooth scroll to top + focus `#main`                                       |
-| `PillLink`     | `src/components/ui/pill-link.tsx`            | Primary/outline pill CTA with arrow chip; external → new tab               |
-| `RollText`     | `src/components/ui/roll-text.tsx`            | CSS hover text roll (needs a `group` parent)                               |
-| `Logo`         | `src/components/ui/logo.tsx`                 | Wordmark + ember dot, links home                                           |
-| `Availability` | `src/components/ui/availability.tsx`         | Pulsing dot + `profile.availability`                                       |
-| `SplitReveal`  | `src/components/motion/split-reveal.tsx`     | SplitText masked lines/words/chars reveal; `scrub` option                  |
-| `HeroSection`  | `src/components/sections/hero-section.tsx`   | Name h1, promise, CTAs, proof, cinematic portrait + rotating badge         |
-| `HeroMotion`   | `src/components/motion/hero-motion.tsx`      | Hero intro timeline, scroll parallax, desktop pointer tilt                 |
-| `JsonLd`       | `src/components/seo/json-ld.tsx`             | Render typed schema.org data                                               |
-| `SmoothScroll` | `src/components/providers/smooth-scroll.tsx` | Lenis + GSAP ticker; exports `getLenis()`, `scrollToTarget()`              |
+| Component             | Path                                                     | Purpose                                                                    |
+| --------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `SiteHeader`          | `src/components/layout/site-header.tsx`                  | Fixed header: logo, desktop nav (lg+), CTA, mobile menu. In root layout.   |
+| `HeaderShell`         | `src/components/layout/header-shell.tsx`                 | Hide-on-scroll-down / blur-on-scroll via `data-*` attrs (no re-renders)    |
+| `MobileMenu`          | `src/components/layout/mobile-menu.tsx`                  | Native `<dialog>` full-screen menu + GSAP wipe/stagger; Esc, focus, Lenis  |
+| `NavLink`             | `src/components/layout/nav-link.tsx`                     | Link that Lenis-scrolls to same-page `#sections`, `aria-current` on routes |
+| `SiteFooter`          | `src/components/layout/site-footer.tsx`                  | `#contact` CTA, link columns, giant wordmark, legal bar. In root layout.   |
+| `BackToTop`           | `src/components/layout/back-to-top.tsx`                  | Smooth scroll to top + focus `#main`                                       |
+| `PillLink`            | `src/components/ui/pill-link.tsx`                        | Primary/outline pill CTA with arrow chip; external → new tab               |
+| `RollText`            | `src/components/ui/roll-text.tsx`                        | CSS hover text roll (needs a `group` parent)                               |
+| `Logo`                | `src/components/ui/logo.tsx`                             | Wordmark + ember dot, links home                                           |
+| `Availability`        | `src/components/ui/availability.tsx`                     | Pulsing dot + `profile.availability`                                       |
+| `SplitReveal`         | `src/components/motion/split-reveal.tsx`                 | SplitText masked lines/words/chars reveal; `scrub` option                  |
+| `HeroSection`         | `src/components/sections/hero-section.tsx`               | Name h1, promise, CTAs, proof, cinematic portrait + rotating badge         |
+| `HeroMotion`          | `src/components/motion/hero-motion.tsx`                  | Hero intro timeline, scroll parallax, desktop pointer tilt                 |
+| `SectionHeading`      | `src/components/ui/section-heading.tsx`                  | "(01) Eyebrow" + h2 with accent word + intro; `align="split"`              |
+| `Reveal`              | `src/components/motion/reveal.tsx`                       | Fade-up for descendants marked `data-reveal` (+ `will-reveal`), batched    |
+| `Marquee`             | `src/components/motion/marquee.tsx`                      | Infinite loop strip; speeds up with scroll velocity; pauses off-screen     |
+| `Counter`             | `src/components/motion/counter.tsx`                      | Count-up number (final value server-rendered)                              |
+| `DrawOnScroll`        | `src/components/motion/draw-on-scroll.tsx`               | Draws SVG `data-draw` strokes, pops `data-pop`, idles `data-float/pulse`   |
+| `ScrubWords`          | `src/components/motion/scrub-words.tsx`                  | Statement text lit word-by-word with scroll                                |
+| `Parallax`            | `src/components/motion/parallax.tsx`                     | Scroll-linked x/y travel (giant background words)                          |
+| `ScrollLine`          | `src/components/motion/scroll-line.tsx`                  | Accent progress line that fills through its parent                         |
+| `WorkGallery`         | `src/components/sections/work-gallery.tsx`               | Showcase cards + native-dialog lightbox (arrows, Esc)                      |
+| `ServiceIllustration` | `src/components/illustrations/service-illustrations.tsx` | Line-art SVG per featured service                                          |
+| `withEmphasis`        | `src/lib/text.tsx`                                       | Wrap a word of a headline in the accent serif style                        |
+| `JsonLd`              | `src/components/seo/json-ld.tsx`                         | Render typed schema.org data                                               |
+| `SmoothScroll`        | `src/components/providers/smooth-scroll.tsx`             | Lenis + GSAP ticker; exports `getLenis()`, `scrollToTarget()`              |
 
 Every page renders `<main id="main" tabIndex={-1} className="outline-none">` (skip-link and
 back-to-top target). The header is fixed, so a page's first section needs

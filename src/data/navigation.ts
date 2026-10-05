@@ -1,12 +1,12 @@
 import type { NavItem } from "./types";
 
 /**
- * Main navigation. Hash links point at homepage sections by id; until a
- * section exists the link simply does nothing. `#contact` is the footer.
+ * Main navigation, in homepage section order. Hash links point at section
+ * ids; `#contact` is the footer.
  */
 export const mainNav: NavItem[] = [
-  { label: "Work", href: "/#work" },
   { label: "Services", href: "/#services" },
+  { label: "Work", href: "/#work" },
   { label: "About", href: "/#about" },
   { label: "Reviews", href: "/#reviews" },
   { label: "Contact", href: "/#contact" },

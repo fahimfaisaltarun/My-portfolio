@@ -4,21 +4,9 @@ import { SplitReveal } from "@/components/motion/split-reveal";
 import { Availability } from "@/components/ui/availability";
 import { PillLink } from "@/components/ui/pill-link";
 import { RollText } from "@/components/ui/roll-text";
+import { withEmphasis } from "@/lib/text";
 import { BackToTop } from "./back-to-top";
 import { NavLink } from "./nav-link";
-
-/** Renders `text` with the first occurrence of `word` in the accent serif style. */
-function withEmphasis(text: string, word?: string) {
-  if (!word || !text.includes(word)) return text;
-  const [before, after] = text.split(word);
-  return (
-    <>
-      {before}
-      <span className="accent-serif text-accent">{word}</span>
-      {after}
-    </>
-  );
-}
 
 function FooterColumn({ title, children }: { title: string; children: React.ReactNode }) {
   return (

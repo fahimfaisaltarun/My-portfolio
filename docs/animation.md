@@ -26,6 +26,12 @@ Defaults: `ease: "expo.out"`, `duration: 0.45`.
   badge pop) plus two SplitText `onSplit` tweens (name chars, tagline lines + pill). Anything
   _inside_ split text must be animated from `onSplit` — splitting rebuilds the DOM, so elements
   queried beforehand are detached copies.
+- **Section motion kit** — `Reveal` (batched fade-up via `data-reveal`), `Marquee`, `Counter`,
+  `DrawOnScroll` (DrawSVG line art), `ScrubWords`, `Parallax`, `ScrollLine`. Reach for these
+  before writing new GSAP code. Guard optional targets (`toArray` + `length`) to avoid
+  "target not found" warnings.
+- **Hot reload caveat:** editing `src/lib/gsap.ts` while a page is open can throw GSAP context
+  errors (re-registered plugins under live contexts). Reload in a fresh tab before debugging.
 - **Testing tip:** GSAP runs on `requestAnimationFrame`, which is paused in hidden tabs/panes —
   an animation that "never finishes" in a background preview usually just isn't being ticked.
 

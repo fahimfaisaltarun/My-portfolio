@@ -8,10 +8,9 @@ export const profile: Profile = {
   headline: "Social Media Marketer & Founder of BrandEzzy",
   summary:
     "Founder of BrandEzzy and Top Rated freelancer on Upwork. I help brands grow with social media marketing, scroll-stopping short-form video, and websites built on WordPress, Wix and Shopify.",
+  // From the Upwork profile. TODO(owner): replace with your own words if you like.
   bio: [
-    // TODO(owner): replace with your own words (2–3 short paragraphs).
-    "I'm a social media marketer, content strategist and founder of BrandEzzy, a digital agency working with brands worldwide.",
-    "I don't believe in random posting. I build content systems — strategy, design, short-form video and consistent publishing — that help brands stay professional and keep growing.",
+    "I'm a Top Rated Upwork freelancer helping brands in wellness, hospitality, e-commerce, real estate and beauty turn social media into steady growth.",
   ],
   location: { country: "Bangladesh", timezone: "Asia/Dhaka" },
   email: "fahimfaisaltarun@gmail.com",

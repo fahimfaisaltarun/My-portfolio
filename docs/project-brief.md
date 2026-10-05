@@ -38,6 +38,8 @@ What we change: their accent is blue; ours is **red (ember)** on near-black, wit
 | 2026-10-05 | Canva design boards → `public/images/work/social-media-design/` (20 WebP, renamed)                           | Data in `src/data/design-showcase.ts`; 8 featured. Two source files were mislabelled (Salon = pet care, skin care = makeup).                         |
 | 2026-10-05 | Hero: name as h1, promise "Turning scrollers into customers", B&W portrait with ember cast (colour on hover) | Photo's warm pink backdrop clashed with ember noir; grayscale + red light ties it in. A background-removed cutout would allow a bolder layout later. |
 | 2026-10-05 | Text on red is pure white; red hover darkens to ember-600                                                    | Owner request. White on ember-500 = 4.2:1 (passes AA for large text).                                                                                |
+| 2026-10-05 | Homepage order: Hero → marquee → Services → Work → Process → About → Reviews → footer CTA                    | Nav reordered to match. Copy rule: one strong headline + one short line per section.                                                                 |
+| 2026-10-05 | Reviews shows verified proof (counters + Top Rated + Upwork link), no quotes yet                             | No review text available yet; never invent testimonials. Cards render automatically from approved data.                                              |
 | 2026-10-05 | SEO-first foundation before any sections                                                                     | Metadata, JSON-LD (Person, WebSite, ProfessionalService), sitemap, robots, manifest, OG image.                                                       |
 
 Added 2026-10-05: tooling + DX setup — `cn()` (clsx + tailwind-merge), `lucide-react`,
@@ -54,13 +56,13 @@ content model types, Claude skills `new-section` / `new-page`.
 - [x] Tooling, DX, content model, agent skills
 - [x] Identity data in `src/data/` (positioning, socials, domain fahirum.com)
 - [x] First primitives: `PillLink`, `RollText`, `SplitReveal`
-- [ ] **Next:** `MarqueeRow` + services section with design showcase rows, then `VideoCard`
+- [x] Skills marquee, Services (animated illustrations), Work (cards + lightbox + rows), Process, About, Reviews (proof)
 - [x] Header / nav (+ animated mobile menu) and footer (contact CTA, wordmark)
 - [x] Hero (name h1, "Turning scrollers into customers", portrait, intro animation)
-- [ ] "I help brands sell with video like:" — service categories with thumbnail rows
-- [ ] Work / case studies (consider `/work/[slug]` pages for long-tail SEO)
-- [ ] Testimonials / client logos
-- [ ] About ("make time" section)
+- [x] Service categories + design showcase rows
+- [ ] Case-study pages `/work/[slug]` (needs project descriptions/results)
+- [ ] Testimonial quotes (section ready — add approved quotes to `src/data/proof.ts`)
+- [x] About (scroll-lit statement, bio, credentials, toolkit)
 - [x] Contact CTA + footer (in `SiteFooter`, `#contact`)
 - [ ] Custom cursor, magnetic buttons, page transitions
 - [ ] Real OG image with photo + brand fonts

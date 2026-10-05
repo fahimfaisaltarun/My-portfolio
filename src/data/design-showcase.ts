@@ -13,10 +13,21 @@ export const designShowcaseSource =
 
 const DIR = "/images/work/social-media-design";
 
+/** Boards that share an industry group with another board. */
+const SECTOR: Record<string, string> = {
+  "luxury-med-spa": "med-spa",
+  "hair-care-products": "hair-care",
+  "hair-care-brand": "hair-care",
+  "makeup-brand": "beauty-products",
+  "makeup-content-creation": "beauty-products",
+  "cosmetics-store": "beauty-products",
+};
+
 function board(slug: string, industry: string, alt: string, featured = false): DesignShowcase {
   return {
     slug,
     industry,
+    sector: SECTOR[slug] ?? slug,
     featured,
     image: {
       type: "image",

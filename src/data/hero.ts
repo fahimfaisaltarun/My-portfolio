@@ -1,7 +1,7 @@
 import { agency } from "./agency";
 import { badges, stats } from "./proof";
 
-const hours = stats[0];
+const hours = stats.find((stat) => stat.id === "hours")!;
 
 /**
  * Homepage hero copy. Kept deliberately short: name (h1), one promise, one

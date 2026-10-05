@@ -3,9 +3,20 @@ import type { Credential, Stat, Testimonial, WorkItem } from "./types";
 // Source for stats: Upwork freelancer profile, fetched 2026-10-05.
 // Re-check before launch — these change over time.
 export const stats: Stat[] = [
-  { value: 5700, suffix: "+", label: "Hours logged on Upwork", source: "Upwork profile" },
-  { value: 56, label: "Upwork jobs completed", source: "Upwork profile (12 fixed + 44 hourly)" },
-  { value: 24, label: "Client reviews", source: "Upwork profile" },
+  {
+    id: "hours",
+    value: 5700,
+    suffix: "+",
+    label: "Hours logged on Upwork",
+    source: "Upwork profile",
+  },
+  {
+    id: "jobs",
+    value: 56,
+    label: "Upwork jobs completed",
+    source: "Upwork profile (12 fixed + 44 hourly)",
+  },
+  { id: "reviews", value: 24, label: "Client reviews", source: "Upwork profile" },
   // TODO(owner): Top Rated is a badge, not a number — render it separately.
   // TODO(owner): add agency-level numbers (clients served, projects, countries) if you track them.
 ];

@@ -6,6 +6,16 @@ export { profile } from "./profile";
 export { agency } from "./agency";
 export { mainNav, footerCta } from "./navigation";
 export { hero } from "./hero";
+export {
+  marqueeItems,
+  servicesCopy,
+  workCopy,
+  processCopy,
+  processSteps,
+  aboutCopy,
+  reviewsCopy,
+  proofStats,
+} from "./home";
 export { services, industries, platforms, tools } from "./services";
 export { stats, badges, work, testimonials, credentials } from "./proof";
 export { designShowcase, designShowcaseSource } from "./design-showcase";
