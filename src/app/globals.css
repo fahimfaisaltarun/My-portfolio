@@ -1,26 +1,312 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Design tokens — palette "Ember noir"
+   Raw values live here as CSS variables so GSAP, inline styles and Tailwind
+   all read the same source. See docs/design-system.md before changing.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base palette */
+  --ink-950: #0a0a0a; /* page background */
+  --ink-900: #111110;
+  --ink-850: #161514; /* raised surface */
+  --ink-800: #1f1e1c; /* elevated surface / hover */
+  --ink-700: #2a2826; /* hairline borders */
+  --ink-600: #3a3835;
+
+  --bone-50: #f4f1ec; /* primary text on dark, light sections */
+  --bone-100: #e8e4dd;
+  --bone-200: #d6d1c9;
+
+  --ash-400: #8c8782; /* muted text */
+  --ash-500: #6b6763;
+
+  --ember-300: #ff7a6e;
+  --ember-400: #ff5446;
+  --ember-500: #e8352b; /* brand accent */
+  --ember-600: #c42419;
+  --ember-700: #9e1b13;
+
+  /* Semantic roles (components use these, never the raw stops) */
+  --background: var(--ink-950);
+  --surface: var(--ink-850);
+  --surface-raised: var(--ink-800);
+  --foreground: var(--bone-50);
+  --muted: var(--ash-400);
+  --subtle: var(--ash-500);
+  --border: var(--ink-700);
+  --border-strong: var(--ink-600);
+  --accent: var(--ember-500);
+  --accent-hover: var(--ember-400);
+  --accent-foreground: var(--ink-950);
+  --ring: var(--ember-400);
+
+  /* Motion — keep CSS and GSAP in sync (see src/lib/motion.ts) */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-fast: 200ms;
+  --duration-base: 450ms;
+  --duration-slow: 900ms;
+
+  /* Layout */
+  --gutter: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  --header-height: 4.5rem;
+
+  color-scheme: dark;
 }
 
+/* Light “paper” sections (e.g. a cream band between dark sections).
+   Add data-theme="light" to any section to flip its semantic roles. */
+[data-theme="light"] {
+  --background: var(--bone-50);
+  --surface: var(--bone-100);
+  --surface-raised: var(--bone-200);
+  --foreground: var(--ink-950);
+  --muted: var(--ash-500);
+  --subtle: var(--ash-400);
+  --border: var(--bone-200);
+  --border-strong: var(--ash-400);
+  --accent-foreground: var(--bone-50);
+
+  color-scheme: light;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* ==========================================================================
+   Tailwind theme mapping
+   ========================================================================== */
+
+@theme {
+  --color-*: initial;
+
+  --color-ink-950: #0a0a0a;
+  --color-ink-900: #111110;
+  --color-ink-850: #161514;
+  --color-ink-800: #1f1e1c;
+  --color-ink-700: #2a2826;
+  --color-ink-600: #3a3835;
+  --color-bone-50: #f4f1ec;
+  --color-bone-100: #e8e4dd;
+  --color-bone-200: #d6d1c9;
+  --color-ash-400: #8c8782;
+  --color-ash-500: #6b6763;
+  --color-ember-300: #ff7a6e;
+  --color-ember-400: #ff5446;
+  --color-ember-500: #e8352b;
+  --color-ember-600: #c42419;
+  --color-ember-700: #9e1b13;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Fluid type scale: clamp(min, preferred, max) */
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-h3: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --text-h3--line-height: 1.1;
+  --text-h2: clamp(2.25rem, 1.5rem + 3vw, 4.5rem);
+  --text-h2--line-height: 1;
+  --text-h1: clamp(3rem, 1.5rem + 6vw, 8rem);
+  --text-h1--line-height: 0.92;
+  --text-display: clamp(4.5rem, 1rem + 14vw, 16rem);
+  --text-display--line-height: 0.85;
+
+  --tracking-display: -0.05em;
+  --tracking-tight: -0.035em;
+  --tracking-snug: -0.015em;
+  --tracking-label: 0.08em;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-3xl: 120rem;
+}
+
+/* Semantic colours + fonts reference runtime variables, so use `inline`. */
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: var(--header-height);
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  img,
+  video,
+  svg,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  ::selection {
+    background-color: var(--accent);
+    color: var(--accent-foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+/* Centered page container with fluid gutters. */
+@utility container-page {
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Vertical rhythm for top-level sections. */
+@utility section-y {
+  padding-block: clamp(5rem, 3rem + 8vw, 11rem);
+}
+
+/* Small uppercase label, e.g. "(Selected work)". */
+@utility label {
+  font-size: var(--text-caption);
+  line-height: var(--text-caption--line-height);
+  font-weight: 500;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Serif italic emphasis inside a heavy sans headline. */
+@utility accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Red pill highlight, e.g. <span class="pill-accent">stop</span>. */
+@utility pill-accent {
+  display: inline-block;
+  padding-inline: 0.28em;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  line-height: 1.05;
+}
+
+/* Prevent flash of un-animated content: GSAP reveals elements with this. */
+@utility will-reveal {
+  visibility: hidden;
+}
+
+.reduced-motion .will-reveal {
+  visibility: visible;
+}
+
+/* ==========================================================================
+   Lenis smooth scroll (required styles)
+   ========================================================================== */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .will-reveal {
+    visibility: visible;
+  }
 }
