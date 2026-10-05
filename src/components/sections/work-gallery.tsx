@@ -21,6 +21,9 @@ const SPANS = ["lg:col-span-7", "lg:col-span-5", "lg:col-span-5", "lg:col-span-7
 export function WorkGallery({ boards }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [active, setActive] = useState(0);
+  // The full-size image is only rendered while open: a lazy <img> inside a
+  // closed <dialog> never starts loading, which left the frame empty.
+  const [isOpen, setIsOpen] = useState(false);
   const board = boards[active];
 
   // Event-handler tween (not render-time), so no GSAP context is needed.
@@ -36,6 +39,7 @@ export function WorkGallery({ boards }: Props) {
 
   function open(index: number) {
     setActive(index);
+    setIsOpen(true);
     dialogRef.current?.showModal();
     getLenis()?.stop();
     animateIn();
@@ -43,7 +47,6 @@ export function WorkGallery({ boards }: Props) {
 
   function close() {
     dialogRef.current?.close();
-    getLenis()?.start();
   }
 
   function go(step: number) {
@@ -101,7 +104,10 @@ export function WorkGallery({ boards }: Props) {
         ref={dialogRef}
         aria-label={`${board.industry} social media design`}
         data-lenis-prevent
-        onClose={() => getLenis()?.start()}
+        onClose={() => {
+          setIsOpen(false);
+          getLenis()?.start();
+        }}
         onKeyDown={(event) => {
           if (event.key === "ArrowRight") go(1);
           if (event.key === "ArrowLeft") go(-1);
@@ -109,21 +115,26 @@ export function WorkGallery({ boards }: Props) {
         onClick={(event) => {
           if (event.target === event.currentTarget) close();
         }}
-        className="m-auto max-h-none w-[min(72rem,calc(100%-2rem))] max-w-none bg-transparent p-0 text-foreground backdrop:bg-ink-950/90 backdrop:backdrop-blur-sm"
+        className="m-auto max-h-none w-[min(72rem,calc(100vw-2rem),calc((100dvh-9rem)*4/3))] max-w-none bg-transparent p-0 text-foreground backdrop:bg-ink-950/90 backdrop:backdrop-blur-sm"
       >
         <figure
           data-lightbox-figure
           className="overflow-hidden rounded-3xl border border-border bg-surface"
         >
-          <Image
-            key={board.slug}
-            src={board.image.src}
-            alt={board.image.alt}
-            width={board.image.width}
-            height={board.image.height}
-            sizes="(min-width: 1152px) 72rem, 100vw"
-            className="h-auto w-full"
-          />
+          {/* Fixed 4:3 frame reserves space while the image loads. */}
+          <div className="relative aspect-[4/3] bg-surface-raised">
+            {isOpen && (
+              <Image
+                key={board.slug}
+                src={board.image.src}
+                alt={board.image.alt}
+                fill
+                loading="eager"
+                sizes="(min-width: 1152px) 72rem, 100vw"
+                className="object-contain"
+              />
+            )}
+          </div>
           <figcaption className="flex flex-wrap items-center justify-between gap-4 p-4 sm:p-5">
             <div>
               <p className="font-bold">{board.industry}</p>
