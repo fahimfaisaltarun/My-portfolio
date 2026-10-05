@@ -2,20 +2,20 @@
 
 ## What's in place
 
-| Piece | File | Notes |
-| ----- | ---- | ----- |
-| Site identity | [`src/config/site.ts`](../src/config/site.ts) | Name, title, description, keywords, socials, URL. **Single source of truth.** |
-| Root metadata | [`src/app/layout.tsx`](../src/app/layout.tsx) | `metadataBase`, title template `%s — Fahim Faisal Tarun`, OG, Twitter, robots, canonical |
-| Viewport | `layout.tsx` → `export const viewport` | `themeColor` lives here (not in `metadata`) in Next 16 |
-| Page metadata helper | [`src/lib/seo.ts`](../src/lib/seo.ts) → `createMetadata()` | Canonical, OG, Twitter, optional `noIndex` |
-| Structured data | `src/lib/seo.ts` + [`src/components/seo/json-ld.tsx`](../src/components/seo/json-ld.tsx) | `Person`, `WebSite`, `ProfessionalService`, rendered in root layout, `<` escaped |
-| Sitemap | [`src/app/sitemap.ts`](../src/app/sitemap.ts) | Add every new public route to `routes` |
-| Robots | [`src/app/robots.ts`](../src/app/robots.ts) | Disallows `/api/` and `/design` |
-| Manifest | [`src/app/manifest.ts`](../src/app/manifest.ts) | Name, colours, icons |
-| Icons | `src/app/icon.svg`, `src/app/apple-icon.tsx` | Generated "F" mark with red dot |
-| OG image | [`src/app/opengraph-image.tsx`](../src/app/opengraph-image.tsx) | 1200×630, generated; used for Twitter too |
-| 404 | [`src/app/not-found.tsx`](../src/app/not-found.tsx) | noindex |
-| Security headers | [`next.config.ts`](../next.config.ts) | nosniff, frame, referrer, permissions; `x-powered-by` removed |
+| Piece                | File                                                                                     | Notes                                                                                    |
+| -------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Site identity        | [`src/config/site.ts`](../src/config/site.ts)                                            | Name, title, description, keywords, socials, URL. **Single source of truth.**            |
+| Root metadata        | [`src/app/layout.tsx`](../src/app/layout.tsx)                                            | `metadataBase`, title template `%s — Fahim Faisal Tarun`, OG, Twitter, robots, canonical |
+| Viewport             | `layout.tsx` → `export const viewport`                                                   | `themeColor` lives here (not in `metadata`) in Next 16                                   |
+| Page metadata helper | [`src/lib/seo.ts`](../src/lib/seo.ts) → `createMetadata()`                               | Canonical, OG, Twitter, optional `noIndex`                                               |
+| Structured data      | `src/lib/seo.ts` + [`src/components/seo/json-ld.tsx`](../src/components/seo/json-ld.tsx) | `Person`, `WebSite`, `ProfessionalService`, rendered in root layout, `<` escaped         |
+| Sitemap              | [`src/app/sitemap.ts`](../src/app/sitemap.ts)                                            | Add every new public route to `routes`                                                   |
+| Robots               | [`src/app/robots.ts`](../src/app/robots.ts)                                              | Disallows `/api/` and `/design`                                                          |
+| Manifest             | [`src/app/manifest.ts`](../src/app/manifest.ts)                                          | Name, colours, icons                                                                     |
+| Icons                | `src/app/icon.svg`, `src/app/apple-icon.tsx`                                             | Generated "F" mark with red dot                                                          |
+| OG image             | [`src/app/opengraph-image.tsx`](../src/app/opengraph-image.tsx)                          | 1200×630, generated; used for Twitter too                                                |
+| 404                  | [`src/app/not-found.tsx`](../src/app/not-found.tsx)                                      | noindex                                                                                  |
+| Security headers     | [`next.config.ts`](../next.config.ts)                                                    | nosniff, frame, referrer, permissions; `x-powered-by` removed                            |
 
 ## Adding a page
 
@@ -24,7 +24,7 @@
 import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
-  title: "Selected work",            // → "Selected work — Fahim Faisal Tarun"
+  title: "Selected work", // → "Selected work — Fahim Faisal Tarun"
   description: "Performance ads, UGC edits and motion graphics for DTC and SaaS brands.",
   path: "/work",
 });
@@ -67,8 +67,8 @@ Then add `{ path: "/work", changeFrequency: "monthly", priority: 0.8 }` to `site
 
 ## Launch checklist
 
-- [ ] Set `NEXT_PUBLIC_SITE_URL` to the real domain (see `.env.example`)
-- [ ] Fill socials + `twitterHandle` in `src/config/site.ts` (feeds `sameAs` in JSON-LD)
+- [x] Production domain fahirum.com set in `src/config/site.ts`
+- [x] Socials + `twitterHandle` filled (feed `sameAs` in JSON-LD)
 - [ ] Replace generated OG image with a branded one (photo + brand fonts)
 - [ ] Add Search Console + Bing verification in `layout.tsx` (`metadata.verification`)
 - [ ] Submit `/sitemap.xml` in Search Console

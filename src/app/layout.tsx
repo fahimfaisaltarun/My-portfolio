@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { fontVariables } from "@/lib/fonts";
-import { personJsonLd, professionalServiceJsonLd, websiteJsonLd } from "@/lib/seo";
+import { agencyJsonLd, personJsonLd, professionalServiceJsonLd, websiteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -70,8 +72,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <style>{`.will-reveal{visibility:visible!important}`}</style>
         </noscript>
-        <JsonLd data={[personJsonLd(), websiteJsonLd(), professionalServiceJsonLd()]} />
-        <SmoothScroll>{children}</SmoothScroll>
+        <JsonLd
+          data={[personJsonLd(), websiteJsonLd(), professionalServiceJsonLd(), agencyJsonLd()]}
+        />
+        <SmoothScroll>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+        </SmoothScroll>
       </body>
     </html>
   );

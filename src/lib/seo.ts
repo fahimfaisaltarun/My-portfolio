@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
+import type {
+  Offer,
+  Organization,
+  Person,
+  ProfessionalService,
+  WebSite,
+  WithContext,
+} from "schema-dts";
 import { siteConfig, socialLinks } from "@/config/site";
+import { agency, credentials, profile, services } from "@/data";
 
 type PageMetadataInput = {
   title?: string;
@@ -56,7 +65,7 @@ export const absoluteUrl = (path = "/") => new URL(path, siteConfig.url).toStrin
 
 /* ---------------------------------------------------------------- JSON-LD */
 
-export function personJsonLd() {
+export function personJsonLd(): WithContext<Person> {
   return {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -67,12 +76,18 @@ export function personJsonLd() {
     url: siteConfig.url,
     email: `mailto:${siteConfig.email}`,
     image: absoluteUrl("/opengraph-image"),
-    knowsAbout: siteConfig.keywords,
-    ...(socialLinks.length > 0 && { sameAs: socialLinks }),
+    knowsAbout: [...siteConfig.keywords],
+    knowsLanguage: profile.languages,
+    address: { "@type": "PostalAddress", addressCountry: profile.location.country },
+    worksFor: { "@id": `${siteConfig.url}/#agency` },
+    alumniOf: credentials
+      .filter((c) => c.kind === "education")
+      .map((c) => ({ "@type": "CollegeOrUniversity" as const, name: c.issuer })),
+    ...(socialLinks.length > 0 && { sameAs: [...socialLinks] }),
   };
 }
 
-export function websiteJsonLd() {
+export function websiteJsonLd(): WithContext<WebSite> {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -84,7 +99,7 @@ export function websiteJsonLd() {
   };
 }
 
-export function professionalServiceJsonLd() {
+export function professionalServiceJsonLd(): WithContext<ProfessionalService> {
   return {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
@@ -94,13 +109,30 @@ export function professionalServiceJsonLd() {
     image: absoluteUrl("/opengraph-image"),
     founder: { "@id": `${siteConfig.url}/#person` },
     areaServed: "Worldwide",
-    serviceType: [
-      "Video editing",
-      "Motion graphics",
-      "Performance ad creative",
-      "UGC video editing",
-      "Podcast editing",
-    ],
+    makesOffer: services.map((service) => offerService(service.title)),
+  };
+}
+
+function offerService(name: string): Offer {
+  return { "@type": "Offer", itemOffered: { "@type": "Service", name } };
+}
+
+export function agencyJsonLd(): WithContext<Organization> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteConfig.url}/#agency`,
+    name: agency.name,
+    url: agency.url,
+    slogan: agency.tagline,
+    description: agency.summary,
+    foundingDate: String(agency.foundedYear),
+    founder: { "@id": `${siteConfig.url}/#person` },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: agency.location.city,
+      addressCountry: agency.location.country,
+    },
   };
 }
 

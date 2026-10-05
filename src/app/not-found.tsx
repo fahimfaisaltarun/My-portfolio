@@ -8,12 +8,16 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <main id="main" className="container-page flex min-h-dvh flex-col items-start justify-center gap-8">
+    <main
+      id="main"
+      tabIndex={-1}
+      className="container-page flex min-h-dvh flex-col items-start justify-center gap-8 outline-none"
+    >
       <span className="label">Error 404</span>
-      <h1 className="text-h1 tracking-display font-extrabold">
+      <h1 className="text-h1 font-extrabold tracking-display">
         Cut <span className="accent-serif text-accent">missing</span>
       </h1>
-      <p className="text-lead max-w-xl text-muted">
+      <p className="max-w-xl text-lead text-muted">
         This page didn&apos;t make the final edit. Head back to the main timeline.
       </p>
       <Link

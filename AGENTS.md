@@ -10,30 +10,50 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # Project: Fahim Faisal Tarun — portfolio
 
-Personal portfolio for a freelance **video editor & motion designer**. Goal: a premium, dark, cinematic
+Personal portfolio for **Fahim Faisal Tarun** — Top Rated Upwork freelancer (social media marketing,
+short-form video, web design) and founder of the BrandEzzy agency. Goal: a premium, dark, cinematic
 site with smooth GSAP animation that ranks well and converts visitors into client enquiries.
 
-Read before working:
+**All content comes from `src/data/` (import from `@/data`).** Never hard-code copy, stats or links.
 
-- [docs/project-brief.md](docs/project-brief.md) — goals, references, decisions made so far, roadmap
-- [docs/design-system.md](docs/design-system.md) — palette "Ember noir", fonts, type scale, utilities
-- [docs/animation.md](docs/animation.md) — GSAP + Lenis rules
-- [docs/seo.md](docs/seo.md) — metadata, structured data, launch checklist
-- [docs/architecture.md](docs/architecture.md) — folders, conventions, where things go
+## Docs — read only the one your task needs
 
-## Stack
+| Task                                  | Read                                                                    |
+| ------------------------------------- | ----------------------------------------------------------------------- |
+| What's decided / what's next          | [docs/project-brief.md](docs/project-brief.md) (decision log + roadmap) |
+| Colours, fonts, type scale, utilities | [docs/design-system.md](docs/design-system.md)                          |
+| Any GSAP / scroll animation           | [docs/animation.md](docs/animation.md)                                  |
+| New route, metadata, structured data  | [docs/seo.md](docs/seo.md)                                              |
+| Where files go, naming, tooling       | [docs/architecture.md](docs/architecture.md)                            |
+| Editing content / open data questions | [src/data/README.md](src/data/README.md)                                |
 
-Next.js 16 (App Router, Turbopack) · React 19 · TypeScript (strict) · Tailwind CSS v4 (CSS-first
-config, no `tailwind.config.js`) · GSAP 3 + `@gsap/react` · Lenis smooth scroll.
+Claude Code skills (load on demand): `new-section`, `new-page` in `.claude/skills/`.
+
+## Stack (already installed — don't reinstall or add alternatives)
+
+Next.js 16 (App Router, Turbopack) · React 19 · TypeScript strict · Tailwind CSS v4 (CSS-first,
+no `tailwind.config.js`) · GSAP 3 + `@gsap/react` (ScrollTrigger, SplitText) · Lenis ·
+`clsx` + `tailwind-merge` via `cn()` · `lucide-react` icons · `schema-dts` (typed JSON-LD) ·
+Prettier + `prettier-plugin-tailwindcss`.
+
+Deliberately **not** installed yet (add only when the feature is built): contact form stack
+(e.g. `zod` + a mail provider), video hosting SDK, analytics, test runner. See
+`docs/architecture.md` → "Adding packages".
 
 ## Commands
 
 ```bash
-npm run dev     # dev server on :3000
-npm run build   # production build — must pass before you call work done
-npm run lint    # eslint
-npx tsc --noEmit
+npm run dev      # dev server on :3000
+npm run check    # lint + typecheck + format:check — run before calling work done
+npm run build    # production build — must pass too
+npm run format   # prettier --write (sorts Tailwind classes)
 ```
+
+## Key files
+
+`src/config/site.ts` (identity/SEO data) · `src/app/globals.css` (tokens) · `src/lib/seo.ts`
+(`createMetadata`, JSON-LD) · `src/lib/gsap.ts` (GSAP import point) · `src/lib/utils.ts` (`cn`)
+· `src/data/` (all content).
 
 ## Hard rules
 
@@ -57,7 +77,7 @@ npx tsc --noEmit
 8. **Accessibility.** Visible focus states (already global), alt text on all media, `aria-hidden`
    on decorative elements, colour contrast AA minimum (`muted` on `background` passes for
    ≥14px text; use `foreground` for small body copy).
-9. Don't add dependencies without a reason written in the PR/commit. Prefer what's here.
+9. Don't add dependencies without a reason in the commit message. Use what's installed first.
 10. Keep docs current: if you change a token, convention or decision, update the matching file in
     `docs/` in the same change.
 

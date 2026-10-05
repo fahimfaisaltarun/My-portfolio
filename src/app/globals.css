@@ -28,6 +28,8 @@
   --ember-600: #c42419;
   --ember-700: #9e1b13;
 
+  --white: #ffffff; /* text on red only — everywhere else use bone */
+
   /* Semantic roles (components use these, never the raw stops) */
   --background: var(--ink-950);
   --surface: var(--ink-850);
@@ -38,8 +40,8 @@
   --border: var(--ink-700);
   --border-strong: var(--ink-600);
   --accent: var(--ember-500);
-  --accent-hover: var(--ember-400);
-  --accent-foreground: var(--ink-950);
+  --accent-hover: var(--ember-600); /* darker on hover keeps white text legible */
+  --accent-foreground: var(--white);
   --ring: var(--ember-400);
 
   /* Motion — keep CSS and GSAP in sync (see src/lib/motion.ts) */
@@ -67,7 +69,7 @@
   --subtle: var(--ash-400);
   --border: var(--bone-200);
   --border-strong: var(--ash-400);
-  --accent-foreground: var(--bone-50);
+  --accent-foreground: var(--white);
 
   color-scheme: light;
   background-color: var(--background);
@@ -117,6 +119,10 @@
   --text-h1--line-height: 0.92;
   --text-display: clamp(4.5rem, 1rem + 14vw, 16rem);
   --text-display--line-height: 0.85;
+  /* Edge-to-edge footer name: container width ÷ the text's width in ems
+     ("Fahim Faisal" ≈ 5.2em at display tracking). Re-tune if the text changes. */
+  --text-wordmark: calc((min(100vw, 100rem) - 2 * var(--gutter)) / 5.35);
+  --text-wordmark--line-height: 0.82;
 
   --tracking-display: -0.05em;
   --tracking-tight: -0.035em;
@@ -258,6 +264,58 @@
   background-color: var(--accent);
   color: var(--accent-foreground);
   line-height: 1.05;
+}
+
+/* Header entrance on first paint — CSS so it runs before hydration. */
+@utility header-in {
+  animation: header-in var(--duration-slow) var(--ease-out-expo) backwards;
+}
+
+@keyframes header-in {
+  from {
+    opacity: 0;
+    translate: 0 -100%;
+  }
+}
+
+/* Slow continuous rotation (hero badge). */
+@utility animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+@keyframes spin-slow {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Scroll cue: a line that drains downward on loop. */
+@utility animate-scroll-cue {
+  animation: scroll-cue 2.2s var(--ease-in-out-quart) infinite;
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  50% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  50.1% {
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* Native <dialog> menu: let the panel own the full viewport. */
+dialog#mobile-menu[open] {
+  display: block;
+  inset: 0;
 }
 
 /* Prevent flash of un-animated content: GSAP reveals elements with this. */

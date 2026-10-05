@@ -1,54 +1,47 @@
 /**
- * Single source of truth for site-wide identity and SEO data.
- * Metadata, JSON-LD, sitemap, robots, manifest and OG images all read from here.
- * Edit this file (not the individual routes) when your details change.
+ * Site-wide SEO configuration, derived from the content in `src/data`.
+ * Edit people/agency facts in `src/data/*`; edit only SEO-specific settings here.
  */
+import { profile } from "@/data";
+
+/** Production domain. Override with NEXT_PUBLIC_SITE_URL (e.g. for preview deployments). */
+const PRODUCTION_URL = "https://fahirum.com";
 
 function resolveSiteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
-  }
+  if (process.env.NODE_ENV === "production") return PRODUCTION_URL;
   return "http://localhost:3000";
 }
 
 export const siteConfig = {
-  name: "Fahim Faisal Tarun",
-  shortName: "Fahim",
-  // TODO: confirm job title wording before launch.
-  jobTitle: "Video Editor & Motion Designer",
-  title: "Fahim Faisal Tarun — Video Editor & Motion Designer",
-  description:
-    "Freelance video editor and motion designer crafting scroll-stopping performance ads, UGC edits, podcasts and motion graphics that help brands get watched and sell.",
+  name: profile.fullName,
+  shortName: profile.shortName,
+  jobTitle: profile.headline,
+  title: `${profile.fullName} — ${profile.headline}`,
+  description: profile.summary,
   url: resolveSiteUrl().replace(/\/$/, ""),
   locale: "en_US",
-  email: "fahimfaisaltarun@gmail.com",
+  email: profile.email,
   keywords: [
-    "video editor",
-    "freelance video editor",
-    "motion designer",
-    "motion graphics",
-    "after effects",
-    "performance ads",
-    "UGC video editing",
-    "podcast editing",
-    "short form video editor",
-    "creative director",
+    "social media marketing",
+    "social media manager",
+    "content strategist",
+    "short form video editing",
+    "Instagram Reels editor",
+    "TikTok marketing",
+    "Meta ads",
+    "Google ads",
+    "WordPress website design",
+    "Shopify website design",
+    "Wix website design",
+    "digital marketing agency",
+    "Upwork top rated freelancer",
   ],
-  // TODO: fill in real profile URLs. Empty strings are filtered out of JSON-LD.
-  socials: {
-    x: "",
-    instagram: "",
-    linkedin: "",
-    youtube: "",
-    behance: "",
-    upwork: "",
-  },
   /** Twitter/X handle including @, used for twitter:creator. */
-  twitterHandle: "",
+  twitterHandle: "@TarunFahim",
   themeColor: "#0A0A0A",
 } as const;
 
 export type SiteConfig = typeof siteConfig;
 
-export const socialLinks = Object.values(siteConfig.socials).filter(Boolean);
+export const socialLinks = profile.socials.map((s) => s.url);
