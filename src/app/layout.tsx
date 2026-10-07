@@ -62,7 +62,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" dir="ltr" className={fontVariables}>
-      <body>
+      {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) add attributes to <body>
+          before React loads. This ignores mismatches on <body> itself only, not its children. */}
+      <body suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:h-auto focus:w-auto focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-foreground"
