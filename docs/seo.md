@@ -9,7 +9,7 @@
 | Viewport             | `layout.tsx` → `export const viewport`                                                   | `themeColor` lives here (not in `metadata`) in Next 16                                   |
 | Page metadata helper | [`src/lib/seo.ts`](../src/lib/seo.ts) → `createMetadata()`                               | Canonical, OG, Twitter, optional `noIndex`                                               |
 | Structured data      | `src/lib/seo.ts` + [`src/components/seo/json-ld.tsx`](../src/components/seo/json-ld.tsx) | `Person`, `WebSite`, `ProfessionalService`, rendered in root layout, `<` escaped         |
-| Sitemap              | [`src/app/sitemap.ts`](../src/app/sitemap.ts)                                            | Add every new public route to `routes`                                                   |
+| Sitemap              | [`src/app/sitemap.ts`](../src/app/sitemap.ts)                                            | Add every new public route to `routes` (blog posts are added automatically)              |
 | Robots               | [`src/app/robots.ts`](../src/app/robots.ts)                                              | Disallows `/api/` and `/design`                                                          |
 | Manifest             | [`src/app/manifest.ts`](../src/app/manifest.ts)                                          | Name, colours, icons                                                                     |
 | Icons                | `src/app/icon.svg`, `src/app/apple-icon.tsx`                                             | Generated "F" mark with red dot                                                          |

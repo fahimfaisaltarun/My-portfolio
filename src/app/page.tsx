@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/sections/about-section";
+import { BlogSection } from "@/components/sections/blog-section";
 import { HeroSection } from "@/components/sections/hero-section";
 import { MarqueeBand } from "@/components/sections/marquee-band";
 import { ProcessSection } from "@/components/sections/process-section";
@@ -22,6 +23,7 @@ export default function HomePage() {
       <AboutSection />
       <ReviewsSection />
       <TestimonialsSection />
+      <BlogSection />
     </main>
   );
 }

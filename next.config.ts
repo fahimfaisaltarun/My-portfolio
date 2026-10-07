@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from "@next/mdx";
 
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -17,4 +18,13 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+/**
+ * MDX for blog posts. Plugins are passed by name (strings) so they work with
+ * Turbopack, which can't receive JS functions. remark-gfm adds tables,
+ * strikethrough, task lists and autolinks.
+ */
+const withMDX = createMDX({
+  options: { remarkPlugins: [["remark-gfm", {}]] },
+});
+
+export default withMDX(nextConfig);

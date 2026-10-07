@@ -1,0 +1,60 @@
+{/*
+Example post. Its metadata (title, date, cover…) is in src/data/blog.ts under the
+same slug. It's a draft, so it only shows in `npm run dev`. Copy this file to start a
+new post, then delete it once you have real articles.
+*/}
+
+This first paragraph is the opening of your article. Keep it short and make the reader
+want to keep going. The title, date and cover image above come from `src/data/blog.ts`,
+so the post body starts straight away with your text.
+
+## Use "##" for section headings
+
+Each `##` heading starts a new section. Use `###` for sub-points inside a section. Don't
+use a single `#`: the post title is already the page's main heading.
+
+### A sub-heading
+
+Normal paragraphs are just lines of text. Leave an empty line between paragraphs. You can
+write **bold text**, _italic text_ and [links to other pages](/#services). Links to other
+websites, like [Upwork](https://www.upwork.com), open in a new tab automatically.
+
+## Lists
+
+- Bullet points start with a dash
+- Each item on its own line
+- Great for tips and checklists
+
+1. Numbered steps start with a number
+2. Useful for processes
+3. Like a content plan
+
+## Quotes
+
+> A strong quote or key takeaway stands out like this.
+
+## Tables
+
+| Platform  | Best format    | Ideal length |
+| --------- | -------------- | ------------ |
+| Instagram | Reels          | 7–15 seconds |
+| TikTok    | Vertical video | 15–30 sec    |
+| LinkedIn  | Carousel posts | 6–10 slides  |
+
+## Images
+
+Put image files in `public/images/blog/` and use the `Figure` block, with the image's real
+width and height, so the page doesn't jump while it loads:
+
+<Figure
+  src="/images/work/social-media-design/beauty-salon-social-media-design.webp"
+  alt="Beauty salon social media post designs"
+  width={1000}
+  height={750}
+  caption="An optional caption appears under the image."
+/>
+
+---
+
+A line with three dashes (`---`) adds a divider, like the one above. End with a clear
+next step for the reader, for example inviting them to get in touch.

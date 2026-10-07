@@ -42,6 +42,7 @@ What we change: their accent is blue; ours is **red (ember)** on near-black, wit
 | 2026-10-05 | Reviews shows verified proof (counters + Top Rated + Upwork link), no quotes yet                             | No review text available yet; never invent testimonials. Cards render automatically from approved data.                                              |
 | 2026-10-06 | Added 12 verbatim Upwork reviews; 5.0 rating now shown (verified)                                            | Unnamed clients are labelled by industry. Hourly rates / per-contract earnings are never published.                                                  |
 | 2026-10-06 | Testimonials: three GSAP scrolling columns after Proof (owner request, modelled on a 21st.dev component)     | Built with GSAP, not `motion`, to keep one animation library. No schema.org Review markup: Google ignores self-serving reviews on your own site.     |
+| 2026-10-07 | Blog: MDX posts (`src/content/blog/`) + `/blog`, `/blog/[slug]`; latest 3 as cards last on the homepage      | Owner request. Metadata in `src/data/blog.ts`; drafts dev-only. BlogPosting JSON-LD, per-post OG image.                                              |
 | 2026-10-05 | SEO-first foundation before any sections                                                                     | Metadata, JSON-LD (Person, WebSite, ProfessionalService), sitemap, robots, manifest, OG image.                                                       |
 
 Added 2026-10-05: tooling + DX setup — `cn()` (clsx + tailwind-merge), `lucide-react`,
@@ -66,6 +67,7 @@ content model types, Claude skills `new-section` / `new-page`.
 - [x] Testimonials: 12 verbatim Upwork reviews in scrolling columns
 - [x] About (scroll-lit statement, bio, credentials, toolkit)
 - [x] Contact CTA + footer (in `SiteFooter`, `#contact`)
+- [x] Blog: `/blog`, `/blog/[slug]` (MDX), homepage preview cards — waiting on first real posts
 - [ ] Custom cursor, magnetic buttons, page transitions
 - [ ] Real OG image with photo + brand fonts
 - [ ] Analytics (privacy-friendly) + Search Console

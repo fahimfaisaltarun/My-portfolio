@@ -2,13 +2,15 @@ import type { NavItem } from "./types";
 
 /**
  * Main navigation, in homepage section order. Hash links point at section
- * ids; `#contact` is the footer.
+ * ids; `#contact` is the footer. "Blog" is a separate page, hidden
+ * (in index.ts) until a post is published.
  */
 export const mainNav: NavItem[] = [
   { label: "Services", href: "/#services" },
   { label: "Work", href: "/#work" },
   { label: "About", href: "/#about" },
   { label: "Reviews", href: "/#reviews" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/#contact" },
 ];
 

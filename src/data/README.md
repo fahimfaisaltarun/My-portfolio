@@ -10,6 +10,7 @@ Every word, number, link and media reference on the site comes from here. Compon
 | `services.ts`        | Services (with `featured` flag), industries, platforms, tools       |
 | `proof.ts`           | Stats, badges, work items, testimonials, education/certifications   |
 | `design-showcase.ts` | 20 social media design boards (Canva) with image paths + alt text   |
+| `blog.ts`            | Blog post metadata (title, excerpt, date, cover, status) + copy     |
 | `navigation.ts`      | Main nav items and footer CTA copy                                  |
 | `types.ts`           | Types for all of the above                                          |
 | `index.ts`           | Barrel + helpers (`publishedWork`, `approvedTestimonials`)          |
@@ -21,6 +22,10 @@ Every word, number, link and media reference on the site comes from here. Compon
 - Testimonials must be real client quotes with `approved: true` before they render.
 - Media files live in `public/` (see "Media layout" below) and are referenced from data only.
 - Every image needs `alt`, `width` and `height` in data (prevents layout shift, helps SEO).
+- Blog posts: body in `src/content/blog/<slug>.mdx`, metadata in `blog.ts` with the same slug.
+  `status: "draft"` shows only in `npm run dev`; switch to `"published"` to go live. Covers go in
+  `public/images/blog/<slug>.webp` (1600×900). `example-post` shows every formatting option.
+  Until a post is published, the Blog nav link is hidden and `/blog` is noindex + out of the sitemap.
 - Search `TODO(owner)` for everything still waiting on the owner.
 
 ## Media layout

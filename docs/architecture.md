@@ -12,14 +12,17 @@ src/
 │   ├── design/page.tsx       # Internal token preview (noindex)
 │   ├── robots.ts · sitemap.ts · manifest.ts
 │   ├── icon.svg · apple-icon.tsx · opengraph-image.tsx
+│   ├── blog/                 # /blog index + [slug] post pages (+ per-post opengraph-image)
 ├── components/
 │   ├── layout/               # SiteHeader, SiteFooter, MobileMenu, NavLink, HeaderShell, BackToTop
 │   ├── providers/            # Client providers (smooth-scroll)
 │   ├── seo/                  # JsonLd
-│   ├── sections/             # Hero, MarqueeBand, Services, Work (+ WorkGallery), Process, About, Reviews, Testimonials
+│   ├── sections/             # Hero, MarqueeBand, Services, Work (+ WorkGallery), Process, About, Reviews, Testimonials, Blog
 │   ├── illustrations/        # Line-art SVG service illustrations (animated by DrawOnScroll)
-│   ├── ui/                   # PillLink, RollText, Logo, Availability (planned: VideoCard…)
+│   ├── ui/                   # PillLink, RollText, Logo, Availability, BlogCard (planned: VideoCard…)
 │   └── motion/               # SplitReveal, HeroMotion, Reveal, Marquee, Counter, DrawOnScroll, ScrubWords, Parallax, ScrollLine
+├── content/blog/             # Blog post bodies (<slug>.mdx); metadata is in src/data/blog.ts
+├── mdx-components.tsx        # Styles for MDX elements in posts (+ <Figure>)
 ├── config/
 │   └── site.ts               # SEO config, derived from src/data
 ├── data/                     # ★ Source of truth for ALL site content (see src/data/README.md)
@@ -30,6 +33,7 @@ src/
     ├── fonts.ts              # next/font definitions
     ├── gsap.ts               # GSAP + plugin registration (client)
     ├── motion.ts             # Motion tokens for GSAP
+    ├── blog.ts               # Server-only: getPosts, getPost, reading time, loadPostBody
     ├── seo.ts                # createMetadata, typed JSON-LD builders
     └── utils.ts              # cn() = clsx + tailwind-merge (knows our custom tokens)
 docs/                         # Project documentation (this folder)
@@ -73,6 +77,7 @@ Add one line here whenever you create a shared component, so the next person reu
 | `withEmphasis`        | `src/lib/text.tsx`                                       | Wrap a word of a headline in the accent serif style                        |
 | `JsonLd`              | `src/components/seo/json-ld.tsx`                         | Render typed schema.org data                                               |
 | `SmoothScroll`        | `src/components/providers/smooth-scroll.tsx`             | Lenis + GSAP ticker; exports `getLenis()`, `scrollToTarget()`              |
+| `BlogCard`            | `src/components/ui/blog-card.tsx`                        | Post preview card (cover or typographic fallback, stretched title link)    |
 
 Every page renders `<main id="main" tabIndex={-1} className="outline-none">` (skip-link and
 back-to-top target). The header is fixed, so a page's first section needs
@@ -120,6 +125,10 @@ already covered. Planned additions, installed only when the feature is built:
 | Video hosting | `@mux/mux-player-react` or `next-video`       | Hosting not decided; plain `<video>` works for now |
 | Analytics     | `@vercel/analytics`, `@vercel/speed-insights` | Depends on host                                    |
 | E2E tests     | `@playwright/test`                            | Worth it once there are interactive flows          |
+
+Installed for the blog: `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react`, `@types/mdx`, `remark-gfm`
+(posts as MDX files; plugins are passed by name for Turbopack). `src/content/` is in
+`.prettierignore` because Prettier only understands MDX v1.
 
 Never add a second animation library (Framer Motion, AOS…), icon set, or CSS framework.
 

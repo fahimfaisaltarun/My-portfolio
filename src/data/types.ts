@@ -192,3 +192,25 @@ export type Credential = {
   start?: string;
   end?: string;
 };
+
+/* ------------------------------------------------------------------ blog */
+
+export type BlogPost = {
+  /** URL segment (/blog/<slug>) and the body file name: src/content/blog/<slug>.mdx */
+  slug: string;
+  title: string;
+  /** 1–2 sentences. Shown on cards and used as the meta description (aim for ≤160 chars). */
+  excerpt: string;
+  /** ISO date, e.g. "2026-10-07". */
+  publishedAt: string;
+  /** ISO date of the last meaningful edit. */
+  updatedAt?: string;
+  /** One short topic, shown as the card label, e.g. "Short-form video". */
+  category: string;
+  /** Optional keywords for SEO (article:tag). */
+  tags?: string[];
+  /** Card + header image (16:9 works best). Cards show a typographic panel when absent. */
+  cover?: ImageAsset;
+  /** Drafts show only in `npm run dev`, never in production. */
+  status: "published" | "draft";
+};

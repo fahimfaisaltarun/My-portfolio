@@ -3,3 +3,6 @@ node_modules
 package-lock.json
 next-env.d.ts
 public
+
+# Blog posts: Prettier only supports MDX v1 and can break MDX 3 syntax (e.g. {/* comments */}).
+src/content/
