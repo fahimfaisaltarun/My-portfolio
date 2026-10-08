@@ -13,6 +13,22 @@ import type { BlogPost, SectionCopy } from "./types";
  */
 export const blogPosts: BlogPost[] = [
   {
+    slug: "how-to-build-a-social-media-strategy-that-generates-leads",
+    title: "How to Build a Social Media Strategy That Actually Generates Leads",
+    excerpt:
+      "Learn how to build a social media strategy that attracts the right audience, builds trust, and turns followers into leads and customers.",
+    publishedAt: "2026-10-08",
+    category: "Social Media Strategy",
+    tags: [
+      "social media strategy",
+      "social media marketing strategy",
+      "social media strategy for small business",
+      "social media lead generation",
+    ],
+    // TODO(owner): add the hero image as cover (public/images/blog/<slug>.webp, 1600×900).
+    status: "published",
+  },
+  {
     slug: "example-post",
     title: "Example post: every formatting option in one place",
     excerpt:

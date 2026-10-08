@@ -67,7 +67,7 @@ content model types, Claude skills `new-section` / `new-page`.
 - [x] Testimonials: 12 verbatim Upwork reviews in scrolling columns
 - [x] About (scroll-lit statement, bio, credentials, toolkit)
 - [x] Contact CTA + footer (in `SiteFooter`, `#contact`)
-- [x] Blog: `/blog`, `/blog/[slug]` (MDX), homepage preview cards — waiting on first real posts
+- [x] Blog: `/blog`, `/blog/[slug]` (MDX), homepage preview cards; first post published 2026-10-08
 - [ ] Custom cursor, magnetic buttons, page transitions
 - [ ] Real OG image with photo + brand fonts
 - [ ] Analytics (privacy-friendly) + Search Console

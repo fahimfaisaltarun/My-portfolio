@@ -2,7 +2,9 @@ import type { MDXComponents } from "mdx/types";
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
+import { profile } from "@/data";
 import { cn } from "@/lib/utils";
+import { PillLink } from "@/components/ui/pill-link";
 
 /**
  * Styles for blog post bodies (src/content/blog/*.mdx). Markdown maps to these
@@ -40,6 +42,20 @@ type FigureProps = {
  * Image with exact dimensions (no layout shift) and an optional caption.
  * Use in MDX: <Figure src="/images/blog/x.webp" alt="…" width={1600} height={900} caption="…" />
  */
+/**
+ * Primary call to action (Upwork link from src/data/profile.ts).
+ * Use in MDX: <HireMe /> or <HireMe label="Work with me" />
+ */
+function HireMe({ label = profile.primaryCta.label }: { label?: string }) {
+  return (
+    <div className="my-10">
+      <PillLink href={profile.primaryCta.href} size="lg">
+        {label}
+      </PillLink>
+    </div>
+  );
+}
+
 function Figure({ src, alt, width, height, caption }: FigureProps) {
   return (
     <figure className="my-10">
@@ -154,6 +170,7 @@ const components = {
     />
   ),
   Figure,
+  HireMe,
 } satisfies MDXComponents;
 
 export function useMDXComponents(): MDXComponents {

@@ -4,6 +4,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { PillLink } from "@/components/ui/pill-link";
 import { BlogCard } from "@/components/ui/blog-card";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { cn } from "@/lib/utils";
 
 const PREVIEW_COUNT = 3;
 
@@ -20,10 +21,14 @@ export async function BlogSection() {
       <div className="container-page">
         <SectionHeading copy={blogCopy} id="blog-title" index="07" align="split" />
 
-        <Reveal as="ul" className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal
+          as="ul"
+          className={cn("mt-14 grid gap-5", posts.length > 1 && "sm:grid-cols-2 lg:grid-cols-3")}
+        >
           {posts.map((post) => (
             <li key={post.slug} data-reveal className="will-reveal">
-              <BlogCard post={post} />
+              {/* A single post gets the wide layout instead of one card and two empty columns. */}
+              <BlogCard post={post} featured={posts.length === 1} />
             </li>
           ))}
         </Reveal>
