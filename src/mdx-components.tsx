@@ -36,11 +36,13 @@ type FigureProps = {
   width: number;
   height: number;
   caption?: string;
+  /** Extend past the text column on large screens (detailed images, infographics). */
+  wide?: boolean;
 };
 
 /**
  * Image with exact dimensions (no layout shift) and an optional caption.
- * Use in MDX: <Figure src="/images/blog/x.webp" alt="…" width={1600} height={900} caption="…" />
+ * Use in MDX: <Figure src="/images/blog/x.webp" alt="…" width={1600} height={900} caption="…" wide />
  */
 /**
  * Primary call to action (Upwork link from src/data/profile.ts).
@@ -56,19 +58,37 @@ function HireMe({ label = profile.primaryCta.label }: { label?: string }) {
   );
 }
 
-function Figure({ src, alt, width, height, caption }: FigureProps) {
+function Figure({ src, alt, width, height, caption, wide = false }: FigureProps) {
+  const image = (
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      sizes={
+        wide
+          ? "(min-width: 80rem) 64rem, (min-width: 48rem) 46rem, 100vw"
+          : "(min-width: 48rem) 46rem, 100vw"
+      }
+      className="h-auto w-full rounded-2xl border border-border"
+    />
+  );
   return (
-    <figure className="my-10">
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        sizes="(min-width: 48rem) 46rem, 100vw"
-        className="h-auto w-full rounded-2xl border border-border"
-      />
-      {caption && (
-        <figcaption className="mt-3 text-center text-small text-muted">{caption}</figcaption>
+    <figure className={cn("my-10", wide && "xl:-mx-36")}>
+      {wide ? (
+        // Detailed images open full size so their text is readable on phones.
+        <a href={src} target="_blank" rel="noopener" className="block rounded-2xl">
+          {image}
+          <span className="sr-only"> (opens full size in a new tab)</span>
+        </a>
+      ) : (
+        image
+      )}
+      {(caption || wide) && (
+        <figcaption className="mt-3 text-center text-small text-muted">
+          {caption}
+          {wide && <span className="lg:hidden"> Tap the image to view it full size.</span>}
+        </figcaption>
       )}
     </figure>
   );

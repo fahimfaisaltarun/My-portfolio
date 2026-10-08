@@ -25,7 +25,13 @@ export const blogPosts: BlogPost[] = [
       "social media strategy for small business",
       "social media lead generation",
     ],
-    // TODO(owner): add the hero image as cover (public/images/blog/<slug>.webp, 1600×900).
+    cover: {
+      type: "image",
+      src: "/images/blog/how-to-build-a-social-media-strategy-that-generates-leads.webp",
+      alt: "Desk with a laptop showing social media growth analytics, a phone with a brand Instagram feed, Instagram, Facebook, LinkedIn and TikTok icons, and a handwritten strategy checklist",
+      width: 1536,
+      height: 1024,
+    },
     status: "published",
   },
   {

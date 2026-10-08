@@ -37,7 +37,7 @@ export function BlogCard({
       <div
         className={cn(
           "relative aspect-[16/10] overflow-hidden bg-surface-raised",
-          featured && "lg:col-span-7 lg:aspect-auto lg:min-h-[26rem]",
+          featured && "lg:col-span-7",
         )}
       >
         {post.cover ? (

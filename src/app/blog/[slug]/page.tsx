@@ -121,8 +121,8 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
               width={post.cover.width}
               height={post.cover.height}
               priority
-              sizes="(min-width: 100rem) 95rem, 100vw"
-              className="mx-auto aspect-[16/9] w-full max-w-6xl rounded-3xl border border-border object-cover"
+              sizes="(min-width: 76rem) 72rem, 100vw"
+              className="mx-auto h-auto w-full max-w-6xl rounded-3xl border border-border"
             />
           </div>
         )}
