@@ -50,7 +50,7 @@ Track answers here; remove each line once the data file is updated.
 Decided 2026-10-05: positioning "founder + marketer", team size 11–50, primary CTA = Upwork,
 featured services = social, short-form video, websites, paid ads.
 
-Decided 2026-10-05: domain fahirum.com; socials added; owner has permission from all clients to
+Decided 2026-10-05: socials added; owner has permission from all clients to
 use their names, work and reviews; no agency-level stats.
 
 1. Reels / short-form video files (none in the Canva deck)

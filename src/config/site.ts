@@ -5,7 +5,7 @@
 import { profile } from "@/data";
 
 /** Production domain. Override with NEXT_PUBLIC_SITE_URL (e.g. for preview deployments). */
-const PRODUCTION_URL = "https://fahirum.com";
+const PRODUCTION_URL = "https://tarunfahim.com";
 
 function resolveSiteUrl(): string {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;

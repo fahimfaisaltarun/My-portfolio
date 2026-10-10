@@ -67,7 +67,7 @@ Then add `{ path: "/work", changeFrequency: "monthly", priority: 0.8 }` to `site
 
 ## Launch checklist
 
-- [x] Production domain fahirum.com set in `src/config/site.ts`
+- [x] Production domain tarunfahim.com set in `src/config/site.ts`
 - [x] Socials + `twitterHandle` filled (feed `sameAs` in JSON-LD)
 - [ ] Replace generated OG image with a branded one (photo + brand fonts)
 - [ ] Add Search Console + Bing verification in `layout.tsx` (`metadata.verification`)
