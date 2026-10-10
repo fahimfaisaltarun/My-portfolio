@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { siteConfig } from "@/config/site";
+import { analyticsEnabled, siteConfig } from "@/config/site";
 import { fontVariables } from "@/lib/fonts";
 import { agencyJsonLd, personJsonLd, professionalServiceJsonLd, websiteJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
+import { ConsentBanner } from "@/components/analytics/consent-banner";
+import { ConversionTracker } from "@/components/analytics/conversion-tracker";
+import { GoogleTag } from "@/components/analytics/google-tag";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -82,6 +85,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
           <SiteFooter />
         </SmoothScroll>
+        {analyticsEnabled && (
+          <>
+            <GoogleTag />
+            <ConversionTracker
+              googleAdsId={siteConfig.analytics.googleAdsId}
+              ga4Id={siteConfig.analytics.ga4Id}
+              labels={siteConfig.analytics.conversionLabels}
+            />
+            <ConsentBanner />
+          </>
+        )}
       </body>
     </html>
   );

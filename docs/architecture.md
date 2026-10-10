@@ -57,13 +57,18 @@ Add one line here whenever you create a shared component, so the next person reu
 | `NavLink`             | `src/components/layout/nav-link.tsx`                     | Link that Lenis-scrolls to same-page `#sections`, `aria-current` on routes |
 | `SiteFooter`          | `src/components/layout/site-footer.tsx`                  | `#contact` CTA, link columns, giant wordmark, legal bar. In root layout.   |
 | `BackToTop`           | `src/components/layout/back-to-top.tsx`                  | Smooth scroll to top + focus `#main`                                       |
+| `GoogleTag`           | `src/components/analytics/google-tag.tsx`                | gtag.js (Ads + GA4), Consent Mode v2 defaults. Root layout, live site only |
+| `ConversionTracker`   | `src/components/analytics/conversion-tracker.tsx`        | Delegated click listener: Upwork + mailto links → Ads conversion + GA4     |
+| `ConsentBanner`       | `src/components/analytics/consent-banner.tsx`            | Accept/Reject card; `CookieSettingsButton` in footer re-opens it           |
 | `PillLink`            | `src/components/ui/pill-link.tsx`                        | Primary/outline pill CTA with arrow chip; external → new tab               |
 | `RollText`            | `src/components/ui/roll-text.tsx`                        | CSS hover text roll (needs a `group` parent)                               |
 | `Logo`                | `src/components/ui/logo.tsx`                             | Wordmark + ember dot, links home                                           |
 | `Availability`        | `src/components/ui/availability.tsx`                     | Pulsing dot + `profile.availability`                                       |
 | `SplitReveal`         | `src/components/motion/split-reveal.tsx`                 | SplitText masked lines/words/chars reveal; `scrub` option                  |
-| `HeroSection`         | `src/components/sections/hero-section.tsx`               | Name h1, promise, CTAs, proof, cinematic portrait + rotating badge         |
-| `HeroMotion`          | `src/components/motion/hero-motion.tsx`                  | Hero intro timeline, scroll parallax, desktop pointer tilt                 |
+| `HeroSection`         | `src/components/sections/hero-section.tsx`               | Promise headline, laptop editor → phone "studio" scene, name h1, CTAs      |
+| `HeroMotion`          | `src/components/motion/hero-motion.tsx`                  | Hero intro, continuous editor/reel loops, scroll depth, pointer tilt       |
+| `SiteIntro`           | `src/components/layout/site-intro.tsx`                   | First-visit intro overlay + inline flag script (homepage)                  |
+| `IntroMotion`         | `src/components/motion/intro-motion.tsx`                 | Intro timeline, load hold, skip, hand-over to the hero (`@/lib/intro`)     |
 | `SectionHeading`      | `src/components/ui/section-heading.tsx`                  | "(01) Eyebrow" + h2 with accent word + intro; `align="split"`              |
 | `Reveal`              | `src/components/motion/reveal.tsx`                       | Fade-up for descendants marked `data-reveal` (+ `will-reveal`), batched    |
 | `Marquee`             | `src/components/motion/marquee.tsx`                      | Infinite loop strip; speeds up with scroll velocity; pauses off-screen     |
@@ -119,12 +124,12 @@ back-to-top target). The header is fixed, so a page's first section needs
 Installed and expected: see the Stack list in `AGENTS.md`. Before adding anything, check it's not
 already covered. Planned additions, installed only when the feature is built:
 
-| Feature       | Likely package(s)                             | Why not yet                                        |
-| ------------- | --------------------------------------------- | -------------------------------------------------- |
-| Contact form  | `zod` (+ `resend` or a form service)          | Contact method not decided                         |
-| Video hosting | `@mux/mux-player-react` or `next-video`       | Hosting not decided; plain `<video>` works for now |
-| Analytics     | `@vercel/analytics`, `@vercel/speed-insights` | Depends on host                                    |
-| E2E tests     | `@playwright/test`                            | Worth it once there are interactive flows          |
+| Feature       | Likely package(s)                       | Why not yet                                        |
+| ------------- | --------------------------------------- | -------------------------------------------------- |
+| Contact form  | `zod` (+ `resend` or a form service)    | Contact method not decided                         |
+| Video hosting | `@mux/mux-player-react` or `next-video` | Hosting not decided; plain `<video>` works for now |
+| Analytics     | `@vercel/speed-insights` (optional)     | Google Ads + GA4 use plain gtag.js, no package     |
+| E2E tests     | `@playwright/test`                      | Worth it once there are interactive flows          |
 
 Installed for the blog: `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react`, `@types/mdx`, `remark-gfm`
 (posts as MDX files; plugins are passed by name for Turbopack). `src/content/` is in

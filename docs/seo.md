@@ -71,7 +71,16 @@ Then add `{ path: "/work", changeFrequency: "monthly", priority: 0.8 }` to `site
 - [x] Socials + `twitterHandle` filled (feed `sameAs` in JSON-LD)
 - [ ] Replace generated OG image with a branded one (photo + brand fonts)
 - [ ] Add Search Console + Bing verification in `layout.tsx` (`metadata.verification`)
-- [ ] Submit `/sitemap.xml` in Search Console
+- [x] Submit `/sitemap.xml` in Search Console (2026-10-10)
 - [ ] Validate with Rich Results Test and validator.schema.org
 - [ ] Lighthouse: Performance ≥ 90, SEO = 100, Accessibility ≥ 95 on mobile
 - [ ] Remove leftover boilerplate: `src/app/favicon.ico`, `public/*.svg` (Next.js defaults)
+
+## Tracking (Google Ads + GA4)
+
+- IDs and conversion labels: `siteConfig.analytics` in `src/config/site.ts`. Empty = off.
+- Loads only when `analyticsEnabled` (production build, not a Vercel preview, at least one ID).
+- Consent Mode v2: everything `denied` until the visitor accepts (`ff-consent` in localStorage).
+- Conversions: any `upwork.com` link → `hire_upwork_click`; any `mailto:` → `email_click`.
+  GA4 events carry `link_location` (section id, e.g. `top` = hero, `contact` = footer).
+- New lead action? Add a branch in `conversion-tracker.tsx` + a label in `siteConfig.analytics`.

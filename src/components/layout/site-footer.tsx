@@ -1,5 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
+import { analyticsEnabled } from "@/config/site";
 import { agency, footerCta, mainNav, profile, services } from "@/data";
+import { CookieSettingsButton } from "@/components/analytics/cookie-settings-button";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Availability } from "@/components/ui/availability";
 import { PillLink } from "@/components/ui/pill-link";
@@ -143,7 +145,10 @@ export function SiteFooter() {
             <ArrowUpRight aria-hidden className="size-3.5" />
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
-          <BackToTop />
+          <div className="flex items-center gap-6">
+            {analyticsEnabled && <CookieSettingsButton />}
+            <BackToTop />
+          </div>
         </div>
       </div>
     </footer>

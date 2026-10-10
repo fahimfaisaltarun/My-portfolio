@@ -22,10 +22,22 @@ Defaults: `ease: "expo.out"`, `duration: 0.45`.
   entrance is the `header-in` CSS animation (runs before hydration). Use `fill-mode: backwards`
   for entrance keyframes on elements that also transition `translate`, or the animation will
   override the transition forever.
-- **Hero** (`HeroMotion`) — intro timeline (portrait clip wipe + zoom settle, label, fades,
-  badge pop) plus two SplitText `onSplit` tweens (name chars, tagline lines + pill). Anything
-  _inside_ split text must be animated from `onSplit` — splitting rebuilds the DOM, so elements
-  queried beforehand are detached copies.
+- **Hero** (`HeroMotion`) — "studio" scene. Intro timeline (headline line masks → laptop tilts up
+  → editor fills in → publish arrow wipes → phone flies in), then continuous loops created
+  paused and started when the intro ends. The playhead sweep is the "director": the preview
+  cuts to the shot under it (`hero.studio.shots`: punch-in + flash, camera pan/push-in, caption
+  pop) and lights the matching clip and media-bin thumbnail; it also drives the timecode text.
+  Plus waveform, REC blink, meters, phone float + story-style reel. A
+  ScrollTrigger pauses every loop while the hero is off screen. GSAP-moved wrappers carry no CSS
+  transform of their own (tilts live on inner elements), and the scene is sized in `cqw` so it
+  scales as one picture.
+- **First-visit intro** (`SiteIntro` + `IntroMotion`, homepage only, once per session) — an
+  inline script flags `<html data-intro="play">` before first paint (skipped for reduced motion,
+  `#hash` links and repeat loads); CSS shows the overlay only then and locks scroll. Timeline:
+  viewfinder + wordmark chars → service words roll → counter/progress 000→100 → holds until
+  fonts/load (max 1.5s) → wordmark lifts, overlay `clip-path` wipes up. It fires
+  `INTRO_DONE_EVENT` as the wipe starts; anything that must wait uses `whenIntroDone()` from
+  `@/lib/intro` (the hero does). Skip button + Escape jump to the exit.
 - **Section motion kit** — `Reveal` (batched fade-up via `data-reveal`), `Marquee`, `Counter`,
   `DrawOnScroll` (DrawSVG line art), `ScrubWords`, `Parallax`, `ScrollLine`. Reach for these
   before writing new GSAP code. Guard optional targets (`toArray` + `length`) to avoid

@@ -278,38 +278,18 @@
   }
 }
 
-/* Slow continuous rotation (hero badge). */
-@utility animate-spin-slow {
-  animation: spin-slow 22s linear infinite;
+/* First-visit intro: hidden unless the inline flag script marked this load
+   (<html data-intro="play">); the page can't scroll underneath it meanwhile. */
+[data-site-intro] {
+  display: none;
 }
 
-@keyframes spin-slow {
-  to {
-    rotate: 360deg;
-  }
+html[data-intro="play"] [data-site-intro] {
+  display: block;
 }
 
-/* Scroll cue: a line that drains downward on loop. */
-@utility animate-scroll-cue {
-  animation: scroll-cue 2.2s var(--ease-in-out-quart) infinite;
-}
-
-@keyframes scroll-cue {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-  50% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  50.1% {
-    transform-origin: bottom;
-  }
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
-  }
+html[data-intro="play"] {
+  overflow: hidden;
 }
 
 /* Native <dialog> menu: let the panel own the full viewport. */

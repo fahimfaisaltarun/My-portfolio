@@ -40,7 +40,30 @@ export const siteConfig = {
   /** Twitter/X handle including @, used for twitter:creator. */
   twitterHandle: "@TarunFahim",
   themeColor: "#0A0A0A",
+  /**
+   * Google tag IDs (public, safe to commit). Leave a value empty to turn that part off.
+   * Ads ID and conversion labels: Google Ads → Goals → Conversions → (action) → Tag setup →
+   * "Install the tag yourself" → `send_to: 'AW-XXXXXXXXX/<label>'`.
+   * GA4 ID: Analytics → Admin → Data streams → (web stream) → Measurement ID.
+   */
+  analytics: {
+    googleAdsId: "", // "AW-XXXXXXXXX"
+    ga4Id: "", // "G-XXXXXXXXXX"
+    conversionLabels: {
+      upworkClick: "", // label for "Hire me on Upwork" clicks
+      emailClick: "", // label for mailto: clicks
+    },
+  },
 } as const;
+
+/**
+ * Tags run only on the live site: production builds, not Vercel preview deployments or
+ * `npm run dev`, so test visits never pollute Ads/GA4 data. Server-only (reads VERCEL_ENV).
+ */
+export const analyticsEnabled =
+  process.env.NODE_ENV === "production" &&
+  process.env.VERCEL_ENV !== "preview" &&
+  Boolean(siteConfig.analytics.googleAdsId || siteConfig.analytics.ga4Id);
 
 export type SiteConfig = typeof siteConfig;
 

@@ -1,6 +1,7 @@
 import { AboutSection } from "@/components/sections/about-section";
 import { BlogSection } from "@/components/sections/blog-section";
 import { HeroSection } from "@/components/sections/hero-section";
+import { SiteIntro } from "@/components/layout/site-intro";
 import { MarqueeBand } from "@/components/sections/marquee-band";
 import { ProcessSection } from "@/components/sections/process-section";
 import { ReviewsSection } from "@/components/sections/reviews-section";
@@ -15,6 +16,7 @@ import { WorkSection } from "@/components/sections/work-section";
 export default function HomePage() {
   return (
     <main id="main" tabIndex={-1} className="outline-none">
+      <SiteIntro />
       <HeroSection />
       <MarqueeBand />
       <ServicesSection />

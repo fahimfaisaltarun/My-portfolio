@@ -6,6 +6,7 @@ export { profile } from "./profile";
 export { agency } from "./agency";
 export { footerCta } from "./navigation";
 export { hero } from "./hero";
+export { intro } from "./intro";
 export {
   marqueeItems,
   servicesCopy,
@@ -21,6 +22,7 @@ export { stats, badges, upworkRating, work, credentials } from "./proof";
 export { testimonials, testimonialsCopy } from "./testimonials";
 export { designShowcase, designShowcaseSource } from "./design-showcase";
 export { blogPosts, blogCopy, blogPageCopy } from "./blog";
+export { consentCopy } from "./consent";
 export type * from "./types";
 
 import { work as allWork } from "./proof";
