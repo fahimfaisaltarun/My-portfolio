@@ -45,7 +45,7 @@ export function TestimonialsSection() {
       id="testimonials"
       data-theme="light"
       aria-labelledby="testimonials-title"
-      className="pb-[clamp(5rem,3rem+8vw,11rem)]"
+      className="pb-(--section-space)"
     >
       <div className="container-page">
         <SectionHeading copy={testimonialsCopy} id="testimonials-title" index="06" align="split" />

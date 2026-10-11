@@ -53,6 +53,9 @@
 
   /* Layout */
   --gutter: clamp(1rem, 0.5rem + 2vw, 2.5rem);
+  /* Padding on each side of a top-level section. Two sections meet with
+     2× this between them (≈112px on phones → 192px on wide screens). */
+  --section-space: clamp(3.5rem, 2.5rem + 3vw, 6rem);
   --header-height: 4.5rem;
 
   color-scheme: dark;
@@ -233,9 +236,10 @@
   padding-inline: var(--gutter);
 }
 
-/* Vertical rhythm for top-level sections. */
+/* Vertical rhythm for top-level sections. Use pt-/pb-(--section-space) when
+   only one side is needed (e.g. a section that continues the band above). */
 @utility section-y {
-  padding-block: clamp(5rem, 3rem + 8vw, 11rem);
+  padding-block: var(--section-space);
 }
 
 /* Small uppercase label, e.g. "(Selected work)". */

@@ -153,7 +153,7 @@ export default async function BlogPostPage({ params }: PageProps<"/blog/[slug]">
       {related.length > 0 && (
         <section
           aria-labelledby="related-title"
-          className="border-t border-border pt-[clamp(4rem,3rem+4vw,7rem)] pb-[clamp(5rem,3rem+8vw,11rem)]"
+          className="border-t border-border pt-[clamp(4rem,3rem+4vw,7rem)] pb-(--section-space)"
         >
           <div className="container-page">
             <h2 id="related-title" className="text-h3 font-bold tracking-tight">

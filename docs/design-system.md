@@ -87,7 +87,7 @@ Tracking: `tracking-display` (−0.05em), `tracking-tight` (−0.035em), `tracki
 | Utility          | What it does                                                            |
 | ---------------- | ----------------------------------------------------------------------- |
 | `container-page` | Max 100rem, centred, fluid side gutter (`--gutter`)                     |
-| `section-y`      | Fluid vertical section padding (5rem → 11rem)                           |
+| `section-y`      | Section padding top + bottom = `--section-space` (3.5rem → 6rem)        |
 | `label`          | Small uppercase tracked muted label                                     |
 | `accent-serif`   | Instrument Serif italic for emphasis words                              |
 | `pill-accent`    | Red rounded pill behind a word                                          |
@@ -107,6 +107,10 @@ Tracking: `tracking-display` (−0.05em), `tracking-tight` (−0.035em), `tracki
 - Gutter: `--gutter` = `clamp(1rem, 0.5rem + 2vw, 2.5rem)` (16px on phones).
 - Radii: pills `rounded-full`, cards `rounded-2xl`, large media `rounded-3xl`.
 - Header height token: `--header-height` (4.5rem) — also used for `scroll-padding-top`.
+- Section rhythm: `--section-space` = `clamp(3.5rem, 2.5rem + 3vw, 6rem)`, applied on both sides
+  by `section-y`, so adjacent sections are always 2× apart (~112px phone → 192px wide). Never add
+  extra `mt-*`/`mb-*` between sections; for one-sided padding use `pt-(--section-space)` /
+  `pb-(--section-space)` instead of a new clamp.
 - Breakpoints: Tailwind defaults plus `3xl` (1920px).
 
 ## Motion tokens
