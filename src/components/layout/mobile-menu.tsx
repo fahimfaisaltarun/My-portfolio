@@ -15,6 +15,8 @@ type Props = {
   links: NavItem[];
   socials: SocialLink[];
   cta: { label: string; href: string };
+  /** "Book a free call" link, shown under the main CTA when set. */
+  bookingCta?: { label: string; href: string };
   email: string;
 };
 
@@ -26,7 +28,7 @@ const DESKTOP_QUERY = "(min-width: 64rem)"; // matches Tailwind `lg`
  * trapped, Esc closes, and the page behind is inert. GSAP adds the panel
  * wipe + staggered link reveal; reduced motion opens and closes instantly.
  */
-export function MobileMenu({ links, socials, cta, email }: Props) {
+export function MobileMenu({ links, socials, cta, bookingCta, email }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
@@ -191,10 +193,15 @@ export function MobileMenu({ links, socials, cta, email }: Props) {
           </nav>
 
           <div className="container-page grid shrink-0 gap-6 border-t border-border py-8">
-            <div data-menu-meta>
+            <div data-menu-meta className="flex flex-wrap gap-3">
               <PillLink href={cta.href} size="lg" onClick={closeMenu}>
                 {cta.label}
               </PillLink>
+              {bookingCta && (
+                <PillLink href={bookingCta.href} size="lg" variant="outline" onClick={closeMenu}>
+                  {bookingCta.label}
+                </PillLink>
+              )}
             </div>
             <div data-menu-meta className="flex flex-wrap items-center justify-between gap-4">
               <a href={`mailto:${email}`} className="text-small underline-offset-4 hover:underline">
