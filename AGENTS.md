@@ -36,8 +36,9 @@ no `tailwind.config.js`) · GSAP 3 + `@gsap/react` (ScrollTrigger, SplitText) ·
 `clsx` + `tailwind-merge` via `cn()` · `lucide-react` icons · `schema-dts` (typed JSON-LD) ·
 Prettier + `prettier-plugin-tailwindcss`.
 
-Deliberately **not** installed yet (add only when the feature is built): contact form stack
-(e.g. `zod` + a mail provider), video hosting SDK, analytics, test runner. See
+Contact form: `zod` (validation) + `resend` (email) behind a Server Action in `src/actions/`.
+Deliberately **not** installed yet (add only when the feature is built): video hosting SDK,
+analytics, test runner. See
 `docs/architecture.md` → "Adding packages".
 
 ## Commands

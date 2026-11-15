@@ -1,18 +1,19 @@
 /**
- * Google tag helpers: Consent Mode v2 state + event sending.
- * The tag itself is loaded by `<GoogleTag />`; IDs live in `siteConfig.analytics`.
+ * Tracking helpers: consent state (Google Consent Mode v2 + Meta Pixel consent) and event sending.
+ * The tags are loaded by `<GoogleTag />` and `<MetaPixel />`; IDs live in `siteConfig.analytics`.
  */
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
+    fbq?: (...args: unknown[]) => void;
   }
 }
 
 export type Consent = "granted" | "denied";
 
-/** localStorage key. `<GoogleTag />`'s inline script reads it too, so keep the two in sync. */
+/** localStorage key. The inline scripts in `<GoogleTag />` and `<MetaPixel />` read it too. */
 export const CONSENT_KEY = "ff-consent";
 const CHANGE_EVENT = "ff-consent-change";
 
@@ -38,7 +39,7 @@ export function readConsent(): Consent | null {
   }
 }
 
-/** Save the visitor's choice and tell the Google tag. `null` re-opens the banner. */
+/** Save the visitor's choice and tell the Google tag + Meta Pixel. `null` re-opens the banner. */
 export function writeConsent(consent: Consent | null) {
   memoryConsent = consent;
   try {
@@ -47,7 +48,10 @@ export function writeConsent(consent: Consent | null) {
   } catch {
     // Storage blocked: memoryConsent covers this page view.
   }
-  if (consent) window.gtag?.("consent", "update", consentSignals(consent));
+  if (consent) {
+    window.gtag?.("consent", "update", consentSignals(consent));
+    window.fbq?.("consent", consent === "granted" ? "grant" : "revoke");
+  }
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
 
@@ -64,4 +68,12 @@ export function subscribeConsent(onChange: () => void) {
 /** Send a gtag event. No-op when the tag isn't loaded (dev, previews, missing IDs). */
 export function sendGtagEvent(name: string, params: Record<string, unknown>) {
   window.gtag?.("event", name, params);
+}
+
+/**
+ * Send a Meta Pixel standard event (Lead, Contact, Schedule…). No-op when the pixel isn't
+ * loaded. While consent is revoked the pixel holds events and sends nothing.
+ */
+export function sendMetaEvent(name: string, params?: Record<string, unknown>) {
+  window.fbq?.("track", name, params);
 }

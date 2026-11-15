@@ -49,9 +49,12 @@ export const siteConfig = {
   analytics: {
     googleAdsId: "", // "AW-XXXXXXXXX"
     ga4Id: "", // "G-XXXXXXXXXX"
+    metaPixelId: "", // Meta (Facebook/Instagram) Pixel ID, digits only: "123456789012345"
     conversionLabels: {
       upworkClick: "", // label for "Hire me on Upwork" clicks
       emailClick: "", // label for mailto: clicks
+      bookCallClick: "", // label for Calendly "Book a call" clicks
+      formSubmit: "", // label for successful contact form submissions
     },
   },
 } as const;
@@ -63,7 +66,11 @@ export const siteConfig = {
 export const analyticsEnabled =
   process.env.NODE_ENV === "production" &&
   process.env.VERCEL_ENV !== "preview" &&
-  Boolean(siteConfig.analytics.googleAdsId || siteConfig.analytics.ga4Id);
+  Boolean(
+    siteConfig.analytics.googleAdsId ||
+    siteConfig.analytics.ga4Id ||
+    siteConfig.analytics.metaPixelId,
+  );
 
 export type SiteConfig = typeof siteConfig;
 

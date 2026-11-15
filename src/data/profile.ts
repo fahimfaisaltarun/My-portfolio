@@ -47,5 +47,10 @@ export const profile: Profile = {
     label: "Hire me on Upwork",
     href: "https://www.upwork.com/freelancers/~01078c58fef2299030",
   },
+  // "Book a free call" button in the hero and contact section (hidden if href is empty).
+  bookingCta: {
+    label: "Book a free call",
+    href: "https://calendly.com/fahimfaisaltarun/30min",
+  },
   availability: "Open to new projects",
 };

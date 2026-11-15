@@ -23,6 +23,7 @@ src/
 │   └── motion/               # SplitReveal, HeroMotion, Reveal, Marquee, Counter, DrawOnScroll, ScrubWords, Parallax, ScrollLine
 ├── content/blog/             # Blog post bodies (<slug>.mdx); metadata is in src/data/blog.ts
 ├── mdx-components.tsx        # Styles for MDX elements in posts (+ <Figure>)
+├── actions/                  # Server Actions ("use server"), e.g. contact.ts (form → Resend)
 ├── config/
 │   └── site.ts               # SEO config, derived from src/data
 ├── data/                     # ★ Source of truth for ALL site content (see src/data/README.md)
@@ -34,6 +35,7 @@ src/
     ├── gsap.ts               # GSAP + plugin registration (client)
     ├── motion.ts             # Motion tokens for GSAP
     ├── blog.ts               # Server-only: getPosts, getPost, reading time, loadPostBody
+    ├── contact.ts            # Contact form zod schema, field limits, ContactState type
     ├── seo.ts                # createMetadata, typed JSON-LD builders
     └── utils.ts              # cn() = clsx + tailwind-merge (knows our custom tokens)
 docs/                         # Project documentation (this folder)
@@ -58,9 +60,11 @@ Add one line here whenever you create a shared component, so the next person reu
 | `SiteFooter`          | `src/components/layout/site-footer.tsx`                  | `#contact` CTA, link columns, giant wordmark, legal bar. In root layout.   |
 | `BackToTop`           | `src/components/layout/back-to-top.tsx`                  | Smooth scroll to top + focus `#main`                                       |
 | `GoogleTag`           | `src/components/analytics/google-tag.tsx`                | gtag.js (Ads + GA4), Consent Mode v2 defaults. Root layout, live site only |
-| `ConversionTracker`   | `src/components/analytics/conversion-tracker.tsx`        | Delegated click listener: Upwork + mailto links → Ads conversion + GA4     |
+| `MetaPixel`           | `src/components/analytics/meta-pixel.tsx`                | Meta Pixel for Meta Ads; consent revoked until Accept. Live site only      |
+| `ConversionTracker`   | `src/components/analytics/conversion-tracker.tsx`        | Delegated click listener: Upwork, Calendly, mailto → Ads conversion + GA4  |
+| `ContactForm`         | `src/components/ui/contact-form.tsx`                     | Footer form → `sendContactMessage` action; inline errors, lead conversion  |
 | `ConsentBanner`       | `src/components/analytics/consent-banner.tsx`            | Accept/Reject card; `CookieSettingsButton` in footer re-opens it           |
-| `PillLink`            | `src/components/ui/pill-link.tsx`                        | Primary/outline pill CTA with arrow chip; external → new tab               |
+| `PillLink`            | `src/components/ui/pill-link.tsx`                        | Pill CTA link; also exports `pillClassName` + `PillArrow` for `<button>`s  |
 | `RollText`            | `src/components/ui/roll-text.tsx`                        | CSS hover text roll (needs a `group` parent)                               |
 | `Logo`                | `src/components/ui/logo.tsx`                             | Wordmark + ember dot, links home                                           |
 | `Availability`        | `src/components/ui/availability.tsx`                     | Pulsing dot + `profile.availability`                                       |
@@ -104,7 +108,10 @@ back-to-top target). The header is fixed, so a page's first section needs
 - **Media:** files in `public/images/<area>/<topic>/` (e.g. `work/social-media-design/`),
   kebab-case keyword names, always rendered with `next/image` using `width`/`height`/`alt` from
   `src/data`. Videos: `public/videos/` or an external host (pending). See `src/data/README.md`.
-- **Env:** only `NEXT_PUBLIC_SITE_URL` today. Document any new variable in `.env.example`.
+- **Env:** `NEXT_PUBLIC_SITE_URL`, plus server-only `RESEND_API_KEY`, `CONTACT_FROM_EMAIL`,
+  `CONTACT_TO_EMAIL` for the contact form. Document any new variable in `.env.example`.
+- **Server Actions** live in `src/actions/<name>.ts` and export only async functions. Treat each
+  as a public endpoint: validate with zod, return only what the UI renders.
 
 ## Tooling
 
@@ -126,10 +133,11 @@ already covered. Planned additions, installed only when the feature is built:
 
 | Feature       | Likely package(s)                       | Why not yet                                        |
 | ------------- | --------------------------------------- | -------------------------------------------------- |
-| Contact form  | `zod` (+ `resend` or a form service)    | Contact method not decided                         |
 | Video hosting | `@mux/mux-player-react` or `next-video` | Hosting not decided; plain `<video>` works for now |
-| Analytics     | `@vercel/speed-insights` (optional)     | Google Ads + GA4 use plain gtag.js, no package     |
+| Analytics     | `@vercel/speed-insights` (optional)     | Ads/GA4/Meta use plain gtag.js + fbevents.js       |
 | E2E tests     | `@playwright/test`                      | Worth it once there are interactive flows          |
+
+Installed for the contact form: `zod` (server-side validation), `resend` (sends the email).
 
 Installed for the blog: `@next/mdx`, `@mdx-js/loader`, `@mdx-js/react`, `@types/mdx`, `remark-gfm`
 (posts as MDX files; plugins are passed by name for Turbopack). `src/content/` is in

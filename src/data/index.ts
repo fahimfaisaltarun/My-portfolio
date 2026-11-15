@@ -23,6 +23,7 @@ export { testimonials, testimonialsCopy } from "./testimonials";
 export { designShowcase, designShowcaseSource } from "./design-showcase";
 export { blogPosts, blogCopy, blogPageCopy } from "./blog";
 export { consentCopy } from "./consent";
+export { contactFormCopy } from "./contact";
 export type * from "./types";
 
 import { work as allWork } from "./proof";

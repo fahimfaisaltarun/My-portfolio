@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { ConsentBanner } from "@/components/analytics/consent-banner";
 import { ConversionTracker } from "@/components/analytics/conversion-tracker";
 import { GoogleTag } from "@/components/analytics/google-tag";
+import { MetaPixel } from "@/components/analytics/meta-pixel";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -87,10 +88,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </SmoothScroll>
         {analyticsEnabled && (
           <>
-            <GoogleTag />
+            {(siteConfig.analytics.googleAdsId || siteConfig.analytics.ga4Id) && <GoogleTag />}
+            {siteConfig.analytics.metaPixelId && <MetaPixel />}
             <ConversionTracker
               googleAdsId={siteConfig.analytics.googleAdsId}
               ga4Id={siteConfig.analytics.ga4Id}
+              metaPixelId={siteConfig.analytics.metaPixelId}
               labels={siteConfig.analytics.conversionLabels}
             />
             <ConsentBanner />

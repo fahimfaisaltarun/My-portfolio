@@ -67,6 +67,8 @@ export type Profile = {
   socials: SocialLink[];
   /** The one main call to action used in hero, header and contact sections. */
   primaryCta: { label: string; href: string };
+  /** Calendly booking link, shown in the hero and contact section. Hidden while `href` is empty. */
+  bookingCta: { label: string; href: string };
   availability?: string;
 };
 

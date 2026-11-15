@@ -1,9 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
-import { analyticsEnabled } from "@/config/site";
+import { analyticsEnabled, siteConfig } from "@/config/site";
 import { agency, footerCta, mainNav, profile, services } from "@/data";
 import { CookieSettingsButton } from "@/components/analytics/cookie-settings-button";
 import { SplitReveal } from "@/components/motion/split-reveal";
 import { Availability } from "@/components/ui/availability";
+import { ContactForm } from "@/components/ui/contact-form";
 import { PillLink } from "@/components/ui/pill-link";
 import { RollText } from "@/components/ui/roll-text";
 import { withEmphasis } from "@/lib/text";
@@ -22,10 +23,11 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
 const linkClass =
   "group inline-flex items-center gap-1 text-small text-foreground/80 transition-colors hover:text-foreground";
 
-/** Site-wide footer: contact CTA (#contact), link columns, giant wordmark, legal bar. */
+/** Site-wide footer: contact CTA + form (#contact), link columns, giant wordmark, legal bar. */
 export function SiteFooter() {
   const year = new Date().getFullYear();
   const featuredServices = services.filter((service) => service.featured);
+  const { googleAdsId, ga4Id, metaPixelId, conversionLabels } = siteConfig.analytics;
 
   return (
     <footer
@@ -34,28 +36,44 @@ export function SiteFooter() {
       className="relative overflow-hidden border-t border-border bg-ink-900"
     >
       <div className="container-page section-y">
-        {/* Call to action */}
-        <div className="max-w-5xl">
-          <p className="label">({footerCta.eyebrow})</p>
-          <SplitReveal
-            as="h2"
-            id="contact-title"
-            className="mt-6 text-h1 font-extrabold tracking-display"
-          >
-            {withEmphasis(footerCta.headline, footerCta.emphasis)}
-          </SplitReveal>
-          <p className="mt-8 max-w-xl text-lead text-muted">{footerCta.blurb}</p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <PillLink href={profile.primaryCta.href} size="lg">
-              {profile.primaryCta.label}
-            </PillLink>
+        {/* Call to action + contact form */}
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-6">
+            <p className="label">({footerCta.eyebrow})</p>
+            <SplitReveal
+              as="h2"
+              id="contact-title"
+              className="mt-6 text-h1 font-extrabold tracking-display"
+            >
+              {withEmphasis(footerCta.headline, footerCta.emphasis)}
+            </SplitReveal>
+            <p className="mt-8 max-w-xl text-lead text-muted">{footerCta.blurb}</p>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <PillLink href={profile.primaryCta.href} size="lg">
+                {profile.primaryCta.label}
+              </PillLink>
+              {profile.bookingCta.href && (
+                <PillLink href={profile.bookingCta.href} size="lg" variant="outline">
+                  {profile.bookingCta.label}
+                </PillLink>
+              )}
+            </div>
             <a
               href={`mailto:${profile.email}`}
-              className="group text-lead font-medium underline decoration-border-strong underline-offset-8 transition-colors hover:decoration-accent"
+              className="group mt-8 inline-block text-lead font-medium underline decoration-border-strong underline-offset-8 transition-colors hover:decoration-accent"
             >
               <RollText>{profile.email}</RollText>
             </a>
           </div>
+
+          <ContactForm
+            className="lg:col-span-6 xl:col-span-5 xl:col-start-8"
+            tracking={
+              analyticsEnabled
+                ? { googleAdsId, ga4Id, metaPixelId, label: conversionLabels.formSubmit }
+                : undefined
+            }
+          />
         </div>
 
         {/* Link columns */}

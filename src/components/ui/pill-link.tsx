@@ -25,6 +25,36 @@ const sizes = {
 
 const iconSizes = { sm: "size-7", md: "size-8", lg: "size-10" } as const;
 
+type PillStyle = { variant?: keyof typeof variants; size?: keyof typeof sizes; className?: string };
+
+/** Classes for a pill CTA. Shared with pill-shaped `<button>`s (e.g. the contact form submit). */
+export function pillClassName({ variant = "primary", size = "md", className }: PillStyle = {}) {
+  return cn(
+    "group inline-flex shrink-0 items-center rounded-full font-medium whitespace-nowrap transition-colors duration-300",
+    variants[variant],
+    sizes[size],
+    className,
+  );
+}
+
+/** The round arrow chip at the end of a pill; rotates on hover of the `group` parent. */
+export function PillArrow({ variant = "primary", size = "md" }: Omit<PillStyle, "className">) {
+  return (
+    <span
+      aria-hidden
+      className={cn(
+        "grid place-items-center rounded-full transition-transform duration-500 ease-out-expo group-hover:rotate-45 motion-reduce:transition-none",
+        variant === "primary"
+          ? "bg-accent-foreground text-accent"
+          : "bg-foreground text-background",
+        iconSizes[size],
+      )}
+    >
+      <ArrowUpRight className="size-[55%]" strokeWidth={2.25} />
+    </span>
+  );
+}
+
 /**
  * Pill-shaped call-to-action link with rolling label and arrow chip.
  * External URLs open in a new tab automatically.
@@ -38,28 +68,12 @@ export function PillLink({
   onClick,
 }: Props) {
   const external = /^https?:\/\//.test(href);
-  const classes = cn(
-    "group inline-flex shrink-0 items-center rounded-full font-medium whitespace-nowrap transition-colors duration-300",
-    variants[variant],
-    sizes[size],
-    className,
-  );
+  const classes = pillClassName({ variant, size, className });
 
   const content = (
     <>
       <RollText>{children}</RollText>
-      <span
-        aria-hidden
-        className={cn(
-          "grid place-items-center rounded-full transition-transform duration-500 ease-out-expo group-hover:rotate-45 motion-reduce:transition-none",
-          variant === "primary"
-            ? "bg-accent-foreground text-accent"
-            : "bg-foreground text-background",
-          iconSizes[size],
-        )}
-      >
-        <ArrowUpRight className="size-[55%]" strokeWidth={2.25} />
-      </span>
+      <PillArrow variant={variant} size={size} />
       {external && <span className="sr-only"> (opens in a new tab)</span>}
     </>
   );

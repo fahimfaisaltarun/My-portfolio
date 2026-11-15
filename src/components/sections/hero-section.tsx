@@ -448,6 +448,11 @@ export function HeroSection() {
               <PillLink href={hero.secondaryCta.href} variant="outline">
                 {hero.secondaryCta.label}
               </PillLink>
+              {profile.bookingCta.href && (
+                <PillLink href={profile.bookingCta.href} variant="outline">
+                  {profile.bookingCta.label}
+                </PillLink>
+              )}
               <PillLink href={profile.primaryCta.href}>{profile.primaryCta.label}</PillLink>
             </div>
             <ul
