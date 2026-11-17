@@ -52,8 +52,10 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  // TODO: add Search Console / Bing verification tokens after setting them up.
-  // verification: { google: "", other: { "msvalidate.01": "" } },
+  // Search Console is verified by DNS (domain property), so no Google token is needed here.
+  verification: {
+    other: { "facebook-domain-verification": siteConfig.verification.facebookDomain },
+  },
 };
 
 export const viewport: Viewport = {

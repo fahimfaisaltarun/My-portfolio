@@ -41,6 +41,13 @@ export const siteConfig = {
   twitterHandle: "@TarunFahim",
   themeColor: "#0A0A0A",
   /**
+   * Site-ownership tokens rendered as <meta> tags in the root layout (public, safe to commit).
+   * Meta: Business settings → Brand safety → Domains → tarunfahim.com → "Add a meta-tag".
+   */
+  verification: {
+    facebookDomain: "p83bbcus8570av0e5v1t6v7addodas",
+  },
+  /**
    * Google tag IDs (public, safe to commit). Leave a value empty to turn that part off.
    * Ads ID and conversion labels: Google Ads → Goals → Conversions → (action) → Tag setup →
    * "Install the tag yourself" → `send_to: 'AW-XXXXXXXXX/<label>'`.
@@ -52,7 +59,7 @@ export const siteConfig = {
     googleAdsId: "AW-18569833329", // "AW-XXXXXXXXX"
     ga4Id: "G-B58Z90YHR1", // "G-XXXXXXXXXX"
     gtmId: "GTM-MWVJZRQ5", // Google Tag Manager container: "GTM-XXXXXXX"
-    metaPixelId: "", // Meta (Facebook/Instagram) Pixel ID, digits only: "123456789012345"
+    metaPixelId: "1668681775042894", // Meta (Facebook/Instagram) Pixel ID, digits only: "123456789012345"
     conversionLabels: {
       upworkClick: "S0GFCOf7gLodEPHW5JZF", // label for "Hire me on Upwork" clicks
       emailClick: "OvCBCOr7gLodEPHW5JZF", // label for mailto: clicks

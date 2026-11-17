@@ -54,6 +54,7 @@ What we change: their accent is blue; ours is **red (ember)** on near-black, wit
 | 2026-11-17 | Tracking: **Google Tag Manager** container added next to gtag.js (Ads + GA4)                                                                                                      | Owner request. Same consent defaults (set before GTM loads); no `<noscript>` iframe. Lead events also pushed to the dataLayer. GA4 lives in code OR in GTM, never both.                  |
 | 2026-11-17 | **Google Ads** account (USD, Bangladesh time), no campaign yet; 4 conversions: form, Calendly, Upwork, email                                                                      | Owner request. Labels in `siteConfig.analytics`; GA4 linked. Enhanced conversions left **off** (would send hashed form emails; not covered by the cookie notice).                        |
 | 2026-11-17 | Tracking audit fixes: GA4 event retention **14 months**, **Search Console linked to GA4**, YouTube goals in Google Ads set to **secondary**, all 4 lead conversions count **One** | Owner request after audit. Keeps campaign bidding focused on enquiries; search queries now visible in GA4.                                                                               |
+| 2026-11-17 | **Meta**: new "Fahim Faisal Tarun" business portfolio (kept apart from client/BrandEzzy portfolios) with Pixel + ad account (USD, Dhaka); domain verified by meta tag             | Owner request. Conversions API left off (browser pixel only, behind the cookie banner).                                                                                                  |
 | 2026-10-10 | First-visit intro: viewfinder + "Fahim." wordmark, rolling services, 000→100 counter, wipe into the hero                                                                          | Owner request. Homepage only, once per session, skippable; off for reduced motion. Hero headline stays painted underneath so LCP is unaffected.                                          |
 
 Added 2026-10-05: tooling + DX setup — `cn()` (clsx + tailwind-merge), `lucide-react`,
@@ -83,7 +84,7 @@ content model types, Claude skills `new-section` / `new-page`.
 - [ ] Custom cursor, magnetic buttons, page transitions
 - [ ] Real OG image with photo + brand fonts
 - [x] Search Console property + sitemap submitted (2026-10-10)
-- [ ] Google Ads + GA4 + GTM + Meta Pixel built (consent banner, conversions). GA4 (`G-B58Z90YHR1`), GTM (`GTM-MWVJZRQ5`) and Google Ads (`AW-18569833329`, 4 conversion labels, linked to GA4) live 2026-11-17; Meta Pixel ID still empty in `src/config/site.ts`
+- [x] Google Ads + GA4 + GTM + Meta Pixel built and live (2026-11-17): GA4 `G-B58Z90YHR1`, GTM `GTM-MWVJZRQ5`, Google Ads `AW-18569833329`, Meta Pixel `1668681775042894` (ad account `2112135902958655`). Payment methods for both ad accounts still to add by owner
 - [ ] Privacy policy page (linked from the cookie banner)
 
 ## Open questions
