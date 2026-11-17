@@ -76,11 +76,21 @@ Then add `{ path: "/work", changeFrequency: "monthly", priority: 0.8 }` to `site
 - [ ] Lighthouse: Performance ≥ 90, SEO = 100, Accessibility ≥ 95 on mobile
 - [ ] Remove leftover boilerplate: `src/app/favicon.ico`, `public/*.svg` (Next.js defaults)
 
-## Tracking (Google Ads + GA4)
+## Tracking (Google Ads + GA4 + Google Tag Manager)
 
 - IDs and conversion labels: `siteConfig.analytics` in `src/config/site.ts`. Empty = off.
+- GTM (`gtmId`) loads from the same inline script as gtag.js, after the consent defaults, so
+  Google tags in the container respect Consent Mode. For non-Google tags in GTM, add
+  "Additional consent checks" (e.g. `analytics_storage`) or trigger them on `consent_update`.
+- GA4: set `ga4Id` here **or** add a GA4 "Google tag" inside GTM — never both (double page views).
+- dataLayer events for GTM "Custom Event" triggers: `hire_upwork_click`, `email_click`,
+  `book_call_click` (with `link_url`, `link_location`, `page_path`), `generate_lead`
+  (`form_id`), `consent_update` (`consent`).
 - Loads only when `analyticsEnabled` (production build, not a Vercel preview, at least one ID).
 - Consent Mode v2: everything `denied` until the visitor accepts (`ff-consent` in localStorage).
 - Conversions: any `upwork.com` link → `hire_upwork_click`; any `mailto:` → `email_click`.
   GA4 events carry `link_location` (section id, e.g. `top` = hero, `contact` = footer).
 - New lead action? Add a branch in `conversion-tracker.tsx` + a label in `siteConfig.analytics`.
+- GA4 key events: GA4 only lets you star an event after it has received it. Once the live site
+  has sent them (up to 24 h after deploy), star `generate_lead`, `book_call_click`,
+  `hire_upwork_click` and `email_click` in Admin → Data display → Events → Recent events.

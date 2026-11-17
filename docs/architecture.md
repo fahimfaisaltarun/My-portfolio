@@ -59,9 +59,9 @@ Add one line here whenever you create a shared component, so the next person reu
 | `NavLink`             | `src/components/layout/nav-link.tsx`                     | Link that Lenis-scrolls to same-page `#sections`, `aria-current` on routes |
 | `SiteFooter`          | `src/components/layout/site-footer.tsx`                  | `#contact` CTA, link columns, giant wordmark, legal bar. In root layout.   |
 | `BackToTop`           | `src/components/layout/back-to-top.tsx`                  | Smooth scroll to top + focus `#main`                                       |
-| `GoogleTag`           | `src/components/analytics/google-tag.tsx`                | gtag.js (Ads + GA4), Consent Mode v2 defaults. Root layout, live site only |
+| `GoogleTag`           | `src/components/analytics/google-tag.tsx`                | gtag.js (Ads + GA4) + GTM container, Consent Mode v2. Live site only       |
 | `MetaPixel`           | `src/components/analytics/meta-pixel.tsx`                | Meta Pixel for Meta Ads; consent revoked until Accept. Live site only      |
-| `ConversionTracker`   | `src/components/analytics/conversion-tracker.tsx`        | Delegated click listener: Upwork, Calendly, mailto → Ads conversion + GA4  |
+| `ConversionTracker`   | `src/components/analytics/conversion-tracker.tsx`        | Delegated click listener: Upwork, Calendly, mailto → Ads, GA4, dataLayer   |
 | `ContactForm`         | `src/components/ui/contact-form.tsx`                     | Footer form → `sendContactMessage` action; inline errors, lead conversion  |
 | `ConsentBanner`       | `src/components/analytics/consent-banner.tsx`            | Accept/Reject card; `CookieSettingsButton` in footer re-opens it           |
 | `PillLink`            | `src/components/ui/pill-link.tsx`                        | Pill CTA link; also exports `pillClassName` + `PillArrow` for `<button>`s  |
@@ -134,7 +134,7 @@ already covered. Planned additions, installed only when the feature is built:
 | Feature       | Likely package(s)                       | Why not yet                                        |
 | ------------- | --------------------------------------- | -------------------------------------------------- |
 | Video hosting | `@mux/mux-player-react` or `next-video` | Hosting not decided; plain `<video>` works for now |
-| Analytics     | `@vercel/speed-insights` (optional)     | Ads/GA4/Meta use plain gtag.js + fbevents.js       |
+| Analytics     | `@vercel/speed-insights` (optional)     | Ads/GA4/GTM/Meta use plain inline snippets         |
 | E2E tests     | `@playwright/test`                      | Worth it once there are interactive flows          |
 
 Installed for the contact form: `zod` (server-side validation), `resend` (sends the email).

@@ -4,7 +4,7 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { ChevronDown, CircleCheck } from "lucide-react";
 import { contactFormCopy } from "@/data";
 import { sendContactMessage } from "@/actions/contact";
-import { sendGtagEvent, sendMetaEvent } from "@/lib/analytics";
+import { pushDataLayerEvent, sendGtagEvent, sendMetaEvent } from "@/lib/analytics";
 import { CONTACT_LIMITS, type ContactField, type ContactState } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import { PillArrow, pillClassName } from "./pill-link";
@@ -42,6 +42,7 @@ export function ContactForm({ tracking, className }: Props) {
       if (tracking?.ga4Id) {
         sendGtagEvent("generate_lead", { send_to: tracking.ga4Id, form_id: "contact" });
       }
+      if (tracking) pushDataLayerEvent("generate_lead", { form_id: "contact" });
       if (tracking?.metaPixelId) {
         sendMetaEvent("Lead", { content_name: "contact_form" });
       }

@@ -88,7 +88,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </SmoothScroll>
         {analyticsEnabled && (
           <>
-            {(siteConfig.analytics.googleAdsId || siteConfig.analytics.ga4Id) && <GoogleTag />}
+            {(siteConfig.analytics.googleAdsId ||
+              siteConfig.analytics.ga4Id ||
+              siteConfig.analytics.gtmId) && <GoogleTag />}
             {siteConfig.analytics.metaPixelId && <MetaPixel />}
             <ConversionTracker
               googleAdsId={siteConfig.analytics.googleAdsId}

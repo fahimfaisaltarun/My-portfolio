@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { sendGtagEvent, sendMetaEvent } from "@/lib/analytics";
+import { pushDataLayerEvent, sendGtagEvent, sendMetaEvent } from "@/lib/analytics";
 
 type Props = {
   googleAdsId: string;
@@ -14,8 +14,9 @@ type Props = {
  * One delegated listener for the whole site: any click on an Upwork link (hero, header,
  * footer, mobile menu, blog <HireMe />, reviews…), a Calendly link or a mailto: link counts
  * as a lead. (Contact form submissions are tracked by `<ContactForm />` on success.)
- * Sends a Google Ads conversion (when a label is set), a GA4 event (when GA4 is set) and a
- * Meta standard event (when the pixel is set): Contact for Upwork/email, Schedule for Calendly.
+ * Sends a Google Ads conversion (when a label is set), a GA4 event (when GA4 is set), the same
+ * event to the GTM dataLayer, and a Meta standard event (when the pixel is set): Contact for
+ * Upwork/email, Schedule for Calendly.
  */
 export function ConversionTracker({ googleAdsId, ga4Id, metaPixelId, labels }: Props) {
   useEffect(() => {
@@ -36,16 +37,15 @@ export function ConversionTracker({ googleAdsId, ga4Id, metaPixelId, labels }: P
       if (googleAdsId && lead.label) {
         sendGtagEvent("conversion", { send_to: `${googleAdsId}/${lead.label}` });
       }
-      if (ga4Id) {
-        // Which CTA converted: section id (e.g. "contact" = footer) or header/article.
-        const area = link.closest("header, footer, section, article");
-        sendGtagEvent(lead.event, {
-          send_to: ga4Id,
-          link_url: link.href,
-          link_location: area?.id || area?.tagName.toLowerCase() || "page",
-          page_path: location.pathname,
-        });
-      }
+      // Which CTA converted: section id (e.g. "contact" = footer) or header/article.
+      const area = link.closest("header, footer, section, article");
+      const params = {
+        link_url: link.href,
+        link_location: area?.id || area?.tagName.toLowerCase() || "page",
+        page_path: location.pathname,
+      };
+      if (ga4Id) sendGtagEvent(lead.event, { send_to: ga4Id, ...params });
+      pushDataLayerEvent(lead.event, params);
       if (metaPixelId) {
         sendMetaEvent(lead.metaEvent, { content_name: lead.event });
       }

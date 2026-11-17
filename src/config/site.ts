@@ -45,10 +45,13 @@ export const siteConfig = {
    * Ads ID and conversion labels: Google Ads → Goals → Conversions → (action) → Tag setup →
    * "Install the tag yourself" → `send_to: 'AW-XXXXXXXXX/<label>'`.
    * GA4 ID: Analytics → Admin → Data streams → (web stream) → Measurement ID.
+   * GTM ID: tagmanager.google.com → (container) → the "GTM-XXXXXXX" next to the container name.
+   * Use GA4 here OR as a "Google tag" inside GTM, never both (page views would count twice).
    */
   analytics: {
     googleAdsId: "", // "AW-XXXXXXXXX"
-    ga4Id: "", // "G-XXXXXXXXXX"
+    ga4Id: "G-B58Z90YHR1", // "G-XXXXXXXXXX"
+    gtmId: "GTM-MWVJZRQ5", // Google Tag Manager container: "GTM-XXXXXXX"
     metaPixelId: "", // Meta (Facebook/Instagram) Pixel ID, digits only: "123456789012345"
     conversionLabels: {
       upworkClick: "", // label for "Hire me on Upwork" clicks
@@ -69,6 +72,7 @@ export const analyticsEnabled =
   Boolean(
     siteConfig.analytics.googleAdsId ||
     siteConfig.analytics.ga4Id ||
+    siteConfig.analytics.gtmId ||
     siteConfig.analytics.metaPixelId,
   );
 

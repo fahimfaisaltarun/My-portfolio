@@ -1,6 +1,7 @@
 /**
  * Tracking helpers: consent state (Google Consent Mode v2 + Meta Pixel consent) and event sending.
- * The tags are loaded by `<GoogleTag />` and `<MetaPixel />`; IDs live in `siteConfig.analytics`.
+ * The tags are loaded by `<GoogleTag />` (gtag.js + GTM) and `<MetaPixel />`; IDs live in
+ * `siteConfig.analytics`.
  */
 
 declare global {
@@ -51,6 +52,8 @@ export function writeConsent(consent: Consent | null) {
   if (consent) {
     window.gtag?.("consent", "update", consentSignals(consent));
     window.fbq?.("consent", consent === "granted" ? "grant" : "revoke");
+    // GTM trigger for non-Google tags that should start only after the visitor accepts.
+    pushDataLayerEvent("consent_update", { consent });
   }
   window.dispatchEvent(new Event(CHANGE_EVENT));
 }
@@ -68,6 +71,14 @@ export function subscribeConsent(onChange: () => void) {
 /** Send a gtag event. No-op when the tag isn't loaded (dev, previews, missing IDs). */
 export function sendGtagEvent(name: string, params: Record<string, unknown>) {
   window.gtag?.("event", name, params);
+}
+
+/**
+ * Push a Google Tag Manager event (`{ event, ...params }`), usable as a "Custom Event" trigger
+ * in GTM. No-op when no Google tag is loaded.
+ */
+export function pushDataLayerEvent(name: string, params: Record<string, unknown> = {}) {
+  window.dataLayer?.push({ event: name, ...params });
 }
 
 /**
