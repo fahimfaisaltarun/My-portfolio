@@ -49,15 +49,15 @@ export const siteConfig = {
    * Use GA4 here OR as a "Google tag" inside GTM, never both (page views would count twice).
    */
   analytics: {
-    googleAdsId: "", // "AW-XXXXXXXXX"
+    googleAdsId: "AW-18569833329", // "AW-XXXXXXXXX"
     ga4Id: "G-B58Z90YHR1", // "G-XXXXXXXXXX"
     gtmId: "GTM-MWVJZRQ5", // Google Tag Manager container: "GTM-XXXXXXX"
     metaPixelId: "", // Meta (Facebook/Instagram) Pixel ID, digits only: "123456789012345"
     conversionLabels: {
-      upworkClick: "", // label for "Hire me on Upwork" clicks
-      emailClick: "", // label for mailto: clicks
-      bookCallClick: "", // label for Calendly "Book a call" clicks
-      formSubmit: "", // label for successful contact form submissions
+      upworkClick: "S0GFCOf7gLodEPHW5JZF", // label for "Hire me on Upwork" clicks
+      emailClick: "OvCBCOr7gLodEPHW5JZF", // label for mailto: clicks
+      bookCallClick: "tLjgCOT7gLodEPHW5JZF", // label for Calendly "Book a call" clicks
+      formSubmit: "2TURCOH7gLodEPHW5JZF", // label for successful contact form submissions
     },
   },
 } as const;

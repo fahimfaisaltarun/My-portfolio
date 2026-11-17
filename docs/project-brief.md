@@ -52,6 +52,7 @@ What we change: their accent is blue; ours is **red (ember)** on near-black, wit
 | 2026-11-15 | **"Book a free call"** (Calendly 30 min) also in the hero, between "See my work" and "Hire me on Upwork"            | Owner request. Link set in `profile.bookingCta`; outline style so Upwork stays the main CTA.                                                                                             |
 | 2026-11-15 | "Book a free call" also in the **header** (outline, left of Upwork, sm+) and the mobile menu                        | Owner request. Upwork stays the red primary CTA everywhere.                                                                                                                              |
 | 2026-11-17 | Tracking: **Google Tag Manager** container added next to gtag.js (Ads + GA4)                                        | Owner request. Same consent defaults (set before GTM loads); no `<noscript>` iframe. Lead events also pushed to the dataLayer. GA4 lives in code OR in GTM, never both.                  |
+| 2026-11-17 | **Google Ads** account (USD, Bangladesh time), no campaign yet; 4 conversions: form, Calendly, Upwork, email        | Owner request. Labels in `siteConfig.analytics`; GA4 linked. Enhanced conversions left **off** (would send hashed form emails; not covered by the cookie notice).                        |
 | 2026-10-10 | First-visit intro: viewfinder + "Fahim." wordmark, rolling services, 000→100 counter, wipe into the hero            | Owner request. Homepage only, once per session, skippable; off for reduced motion. Hero headline stays painted underneath so LCP is unaffected.                                          |
 
 Added 2026-10-05: tooling + DX setup — `cn()` (clsx + tailwind-merge), `lucide-react`,
@@ -81,7 +82,7 @@ content model types, Claude skills `new-section` / `new-page`.
 - [ ] Custom cursor, magnetic buttons, page transitions
 - [ ] Real OG image with photo + brand fonts
 - [x] Search Console property + sitemap submitted (2026-10-10)
-- [ ] Google Ads + GA4 + GTM + Meta Pixel built (consent banner, conversions). GA4 (`G-B58Z90YHR1`) + GTM (`GTM-MWVJZRQ5`) live 2026-11-17; Ads ID, labels and Meta Pixel ID still empty in `src/config/site.ts`
+- [ ] Google Ads + GA4 + GTM + Meta Pixel built (consent banner, conversions). GA4 (`G-B58Z90YHR1`), GTM (`GTM-MWVJZRQ5`) and Google Ads (`AW-18569833329`, 4 conversion labels, linked to GA4) live 2026-11-17; Meta Pixel ID still empty in `src/config/site.ts`
 - [ ] Privacy policy page (linked from the cookie banner)
 
 ## Open questions
