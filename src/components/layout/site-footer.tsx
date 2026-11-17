@@ -27,7 +27,7 @@ const linkClass =
 export function SiteFooter() {
   const year = new Date().getFullYear();
   const featuredServices = services.filter((service) => service.featured);
-  const { googleAdsId, ga4Id, metaPixelId, conversionLabels } = siteConfig.analytics;
+  const { googleAdsId, ga4Id, metaPixelId, conversionLabels, xEvents } = siteConfig.analytics;
 
   return (
     <footer
@@ -70,7 +70,13 @@ export function SiteFooter() {
             className="lg:col-span-6 xl:col-span-5 xl:col-start-8"
             tracking={
               analyticsEnabled
-                ? { googleAdsId, ga4Id, metaPixelId, label: conversionLabels.formSubmit }
+                ? {
+                    googleAdsId,
+                    ga4Id,
+                    metaPixelId,
+                    label: conversionLabels.formSubmit,
+                    xEvent: xEvents.formSubmit,
+                  }
                 : undefined
             }
           />

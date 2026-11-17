@@ -7,6 +7,7 @@ import { ConsentBanner } from "@/components/analytics/consent-banner";
 import { ConversionTracker } from "@/components/analytics/conversion-tracker";
 import { GoogleTag } from "@/components/analytics/google-tag";
 import { MetaPixel } from "@/components/analytics/meta-pixel";
+import { XPixel } from "@/components/analytics/x-pixel";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -94,11 +95,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               siteConfig.analytics.ga4Id ||
               siteConfig.analytics.gtmId) && <GoogleTag />}
             {siteConfig.analytics.metaPixelId && <MetaPixel />}
+            {siteConfig.analytics.xPixelId && <XPixel pixelId={siteConfig.analytics.xPixelId} />}
             <ConversionTracker
               googleAdsId={siteConfig.analytics.googleAdsId}
               ga4Id={siteConfig.analytics.ga4Id}
               metaPixelId={siteConfig.analytics.metaPixelId}
               labels={siteConfig.analytics.conversionLabels}
+              xEvents={siteConfig.analytics.xEvents}
             />
             <ConsentBanner />
           </>

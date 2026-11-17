@@ -1,7 +1,7 @@
 /**
  * Tracking helpers: consent state (Google Consent Mode v2 + Meta Pixel consent) and event sending.
- * The tags are loaded by `<GoogleTag />` (gtag.js + GTM) and `<MetaPixel />`; IDs live in
- * `siteConfig.analytics`.
+ * The tags are loaded by `<GoogleTag />` (gtag.js + GTM), `<MetaPixel />` and `<XPixel />`
+ * (only after consent); IDs live in `siteConfig.analytics`.
  */
 
 declare global {
@@ -9,6 +9,7 @@ declare global {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
+    twq?: (...args: unknown[]) => void;
   }
 }
 
@@ -87,4 +88,12 @@ export function pushDataLayerEvent(name: string, params: Record<string, unknown>
  */
 export function sendMetaEvent(name: string, params?: Record<string, unknown>) {
   window.fbq?.("track", name, params);
+}
+
+/**
+ * Send an X Pixel conversion event (`tw-<pixel>-<event>` from X Events manager). No-op until
+ * the visitor accepts cookies, because `<XPixel />` only loads after consent.
+ */
+export function sendXEvent(eventId: string, params: Record<string, unknown> = {}) {
+  window.twq?.("event", eventId, params);
 }

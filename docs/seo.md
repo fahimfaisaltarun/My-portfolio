@@ -76,7 +76,7 @@ Then add `{ path: "/work", changeFrequency: "monthly", priority: 0.8 }` to `site
 - [ ] Lighthouse: Performance ≥ 90, SEO = 100, Accessibility ≥ 95 on mobile
 - [ ] Remove leftover boilerplate: `src/app/favicon.ico`, `public/*.svg` (Next.js defaults)
 
-## Tracking (Google Ads + GA4 + Google Tag Manager + Meta Pixel)
+## Tracking (Google Ads + GA4 + Google Tag Manager + Meta Pixel + X Pixel)
 
 - IDs and conversion labels: `siteConfig.analytics` in `src/config/site.ts`. Empty = off.
 - GTM (`gtmId`) loads from the same inline script as gtag.js, after the consent defaults, so
@@ -94,6 +94,9 @@ Then add `{ path: "/work", changeFrequency: "monthly", priority: 0.8 }` to `site
 - Meta: Pixel/dataset `1668681775042894` in the "Fahim Faisal Tarun" business portfolio, connected
   to ad account `2112135902958655`. Domain ownership via the `facebook-domain-verification` meta
   tag (`siteConfig.verification.facebookDomain`). No Conversions API (browser pixel only).
+- X: ads account `18ce55ymjc4` (@TarunFahim), pixel `rjaik`, custom events in
+  `siteConfig.analytics.xEvents`. uwt.js has no consent API, so `<XPixel />` mounts only after
+  Accept; clicks before that aren't sent to X.
 - GA4 key events: GA4 only lets you star an event after it has received it. Once the live site
   has sent them (up to 24 h after deploy), star `generate_lead`, `book_call_click`,
   `hire_upwork_click` and `email_click` in Admin → Data display → Events → Recent events.

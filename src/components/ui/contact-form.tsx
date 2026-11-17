@@ -4,14 +4,20 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { ChevronDown, CircleCheck } from "lucide-react";
 import { contactFormCopy } from "@/data";
 import { sendContactMessage } from "@/actions/contact";
-import { pushDataLayerEvent, sendGtagEvent, sendMetaEvent } from "@/lib/analytics";
+import { pushDataLayerEvent, sendGtagEvent, sendMetaEvent, sendXEvent } from "@/lib/analytics";
 import { CONTACT_LIMITS, type ContactField, type ContactState } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import { PillArrow, pillClassName } from "./pill-link";
 
 type Props = {
   /** Passed only when analytics is on (live site): fires a lead conversion on success. */
-  tracking?: { googleAdsId: string; ga4Id: string; metaPixelId: string; label: string };
+  tracking?: {
+    googleAdsId: string;
+    ga4Id: string;
+    metaPixelId: string;
+    label: string;
+    xEvent: string;
+  };
   className?: string;
 };
 
@@ -46,6 +52,7 @@ export function ContactForm({ tracking, className }: Props) {
       if (tracking?.metaPixelId) {
         sendMetaEvent("Lead", { content_name: "contact_form" });
       }
+      if (tracking?.xEvent) sendXEvent(tracking.xEvent);
     } else if (state.status === "error") {
       // Move focus to the first field with a problem so keyboard/screen-reader users land on it.
       const firstInvalid = formRef.current?.querySelector<HTMLElement>("[aria-invalid=true]");

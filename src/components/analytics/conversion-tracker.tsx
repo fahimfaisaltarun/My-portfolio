@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
-import { pushDataLayerEvent, sendGtagEvent, sendMetaEvent } from "@/lib/analytics";
+import { pushDataLayerEvent, sendGtagEvent, sendMetaEvent, sendXEvent } from "@/lib/analytics";
 
 type Props = {
   googleAdsId: string;
   ga4Id: string;
   metaPixelId: string;
   labels: { upworkClick: string; emailClick: string; bookCallClick: string };
+  /** X Pixel event IDs (`tw-…`); empty = skip. */
+  xEvents: { upworkClick: string; emailClick: string; bookCallClick: string };
 };
 
 /**
@@ -15,22 +17,38 @@ type Props = {
  * footer, mobile menu, blog <HireMe />, reviews…), a Calendly link or a mailto: link counts
  * as a lead. (Contact form submissions are tracked by `<ContactForm />` on success.)
  * Sends a Google Ads conversion (when a label is set), a GA4 event (when GA4 is set), the same
- * event to the GTM dataLayer, and a Meta standard event (when the pixel is set): Contact for
- * Upwork/email, Schedule for Calendly.
+ * event to the GTM dataLayer, a Meta standard event (when the pixel is set): Contact for
+ * Upwork/email, Schedule for Calendly, and an X Pixel event (only fires after consent).
  */
-export function ConversionTracker({ googleAdsId, ga4Id, metaPixelId, labels }: Props) {
+export function ConversionTracker({ googleAdsId, ga4Id, metaPixelId, labels, xEvents }: Props) {
   useEffect(() => {
     function onClick(event: MouseEvent) {
       const link = (event.target as Element | null)?.closest?.("a[href]");
       if (!(link instanceof HTMLAnchorElement)) return;
 
-      let lead: { label: string; event: string; metaEvent: string } | null = null;
+      type Lead = { label: string; event: string; metaEvent: string; xEvent: string };
+      let lead: Lead | null = null;
       if (link.protocol === "mailto:") {
-        lead = { label: labels.emailClick, event: "email_click", metaEvent: "Contact" };
+        lead = {
+          label: labels.emailClick,
+          event: "email_click",
+          metaEvent: "Contact",
+          xEvent: xEvents.emailClick,
+        };
       } else if (/(^|\.)upwork\.com$/.test(link.hostname)) {
-        lead = { label: labels.upworkClick, event: "hire_upwork_click", metaEvent: "Contact" };
+        lead = {
+          label: labels.upworkClick,
+          event: "hire_upwork_click",
+          metaEvent: "Contact",
+          xEvent: xEvents.upworkClick,
+        };
       } else if (/(^|\.)calendly\.com$/.test(link.hostname)) {
-        lead = { label: labels.bookCallClick, event: "book_call_click", metaEvent: "Schedule" };
+        lead = {
+          label: labels.bookCallClick,
+          event: "book_call_click",
+          metaEvent: "Schedule",
+          xEvent: xEvents.bookCallClick,
+        };
       }
       if (!lead) return;
 
@@ -49,6 +67,7 @@ export function ConversionTracker({ googleAdsId, ga4Id, metaPixelId, labels }: P
       if (metaPixelId) {
         sendMetaEvent(lead.metaEvent, { content_name: lead.event });
       }
+      if (lead.xEvent) sendXEvent(lead.xEvent);
     }
 
     // auxclick catches middle-click "open in new tab".
@@ -65,6 +84,9 @@ export function ConversionTracker({ googleAdsId, ga4Id, metaPixelId, labels }: P
     labels.upworkClick,
     labels.emailClick,
     labels.bookCallClick,
+    xEvents.upworkClick,
+    xEvents.emailClick,
+    xEvents.bookCallClick,
   ]);
 
   return null;

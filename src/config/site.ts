@@ -60,6 +60,17 @@ export const siteConfig = {
     ga4Id: "G-B58Z90YHR1", // "G-XXXXXXXXXX"
     gtmId: "GTM-MWVJZRQ5", // Google Tag Manager container: "GTM-XXXXXXX"
     metaPixelId: "1668681775042894", // Meta (Facebook/Instagram) Pixel ID, digits only: "123456789012345"
+    /**
+     * X (Twitter) Ads pixel ID and its conversion event IDs.
+     * ads.x.com → Tools → Events manager → (event) → "Install event" → `twq('event', 'tw-…')`.
+     */
+    xPixelId: "rjaik",
+    xEvents: {
+      upworkClick: "tw-rjaik-rjaiv",
+      emailClick: "tw-rjaik-rjaj0",
+      bookCallClick: "tw-rjaik-rjaiu",
+      formSubmit: "tw-rjaik-rjaiq",
+    },
     conversionLabels: {
       upworkClick: "S0GFCOf7gLodEPHW5JZF", // label for "Hire me on Upwork" clicks
       emailClick: "OvCBCOr7gLodEPHW5JZF", // label for mailto: clicks
@@ -80,7 +91,8 @@ export const analyticsEnabled =
     siteConfig.analytics.googleAdsId ||
     siteConfig.analytics.ga4Id ||
     siteConfig.analytics.gtmId ||
-    siteConfig.analytics.metaPixelId,
+    siteConfig.analytics.metaPixelId ||
+    siteConfig.analytics.xPixelId,
   );
 
 export type SiteConfig = typeof siteConfig;
